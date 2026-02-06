@@ -1,5 +1,6 @@
-import { Mic, Brain, BarChart3 } from "lucide-react";
+import { Mic, Brain, BarChart3, ArrowRight } from "lucide-react";
 import FadeIn from "./FadeIn";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -7,47 +8,58 @@ const steps = [
     num: "01",
     title: "Speak, Snap, or Type",
     desc: "Record a sale in seconds — send a voice note, snap a receipt, or just type it out.",
+    color: "from-accent/20 to-accent/5",
   },
   {
     icon: Brain,
     num: "02",
     title: "AI Handles the Math",
     desc: "Automatic double-entry accounting behind the scenes. Every debit has a credit. Always balanced.",
+    color: "from-accent/15 to-accent/5",
   },
   {
     icon: BarChart3,
     num: "03",
     title: "Know Your Profit",
     desc: "Real-time dashboard showing cash, margins, inventory, and who owes you — at a glance.",
+    color: "from-accent/10 to-accent/5",
   },
 ];
 
 const SolutionSection = () => (
-  <section id="solution" className="py-20 md:py-28 bg-primary">
-    <div className="container mx-auto px-4 md:px-8">
+  <section id="solution" className="py-24 md:py-32 bg-primary relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
+    <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-accent font-semibold text-sm uppercase tracking-widest">Meet Your AI Copilot</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mt-3">
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
             No accounting knowledge required
           </h2>
-          <p className="text-primary-foreground/60 mt-4 text-lg">
+          <p className="text-primary-foreground/50 mt-5 text-lg">
             You run your shop. The AI runs your books.
           </p>
         </div>
       </FadeIn>
 
-      <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {steps.map((s, i) => (
           <FadeIn key={s.num} delay={i * 0.15}>
-            <div className="relative bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 transition-all duration-300">
-              <span className="font-display text-5xl font-bold text-accent/20 absolute top-4 right-6">{s.num}</span>
-              <div className="w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center mb-5">
+            <motion.div
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="relative rounded-2xl p-8 border border-primary-foreground/8 bg-gradient-to-b from-primary-foreground/8 to-transparent hover:border-accent/20 transition-all duration-300 h-full"
+            >
+              <span className="font-display text-6xl font-bold text-accent/10 absolute top-4 right-6">{s.num}</span>
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-6`}>
                 <s.icon className="h-6 w-6 text-accent" />
               </div>
               <h3 className="font-display text-xl font-semibold text-primary-foreground mb-3">{s.title}</h3>
-              <p className="text-primary-foreground/60 text-sm leading-relaxed">{s.desc}</p>
-            </div>
+              <p className="text-primary-foreground/50 text-sm leading-relaxed">{s.desc}</p>
+              {i < steps.length - 1 && (
+                <ArrowRight className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-accent/30 translate-x-full" />
+              )}
+            </motion.div>
           </FadeIn>
         ))}
       </div>

@@ -1,64 +1,96 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Mic, Camera, MessageSquare } from "lucide-react";
 import FadeIn from "./FadeIn";
+import { motion } from "framer-motion";
 
 const Navbar = () => (
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
+  <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/90 backdrop-blur-xl border-b border-primary-foreground/5">
     <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
       <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
         Shop AI <span className="text-accent">Copilot</span>
       </span>
-      <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/70">
-        <a href="#problem" className="hover:text-primary-foreground transition-colors">Problem</a>
-        <a href="#solution" className="hover:text-primary-foreground transition-colors">Solution</a>
-        <a href="#features" className="hover:text-primary-foreground transition-colors">Features</a>
-        <a href="#how-it-works" className="hover:text-primary-foreground transition-colors">How It Works</a>
+      <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/60 font-medium">
+        <a href="#problem" className="hover:text-primary-foreground transition-colors duration-200">Problem</a>
+        <a href="#solution" className="hover:text-primary-foreground transition-colors duration-200">Solution</a>
+        <a href="#features" className="hover:text-primary-foreground transition-colors duration-200">Features</a>
+        <a href="#pricing" className="hover:text-primary-foreground transition-colors duration-200">Pricing</a>
       </div>
-      <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+      <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20">
         Join Waitlist
       </Button>
     </div>
   </nav>
 );
 
+const FloatingInput = ({ icon: Icon, label, delay }: { icon: React.ElementType; label: string; delay: number }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 backdrop-blur-sm"
+  >
+    <Icon className="h-4 w-4 text-accent" />
+    <span className="text-primary-foreground/60 text-sm font-medium">{label}</span>
+  </motion.div>
+);
+
 const Hero = () => (
   <section className="relative min-h-screen flex items-center bg-primary overflow-hidden pt-20">
-    {/* Glow effect */}
-    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/10 blur-[120px] pointer-events-none" />
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+    {/* Glow effects */}
+    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/8 blur-[150px] pointer-events-none" />
+    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none" />
+    <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent" />
 
     <div className="container mx-auto px-4 md:px-8 py-20 md:py-32 relative z-10">
       <div className="max-w-3xl">
         <FadeIn>
-          <span className="inline-block px-4 py-1.5 rounded-full bg-accent/15 text-accent text-sm font-medium mb-6 border border-accent/20">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6 border border-accent/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             Built for African Retail
           </span>
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-[1.1] mb-6">
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-[1.08] mb-6">
             Bank-Grade Accounting for{" "}
-            <span className="text-accent">Chaotic Retail</span>
+            <span className="relative">
+              <span className="text-accent">Chaotic Retail</span>
+              <motion.span
+                className="absolute -bottom-1 left-0 right-0 h-[3px] bg-accent/40 rounded-full"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              />
+            </span>
           </h1>
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <p className="text-lg md:text-xl text-primary-foreground/70 max-w-xl mb-10 leading-relaxed">
+          <p className="text-lg md:text-xl text-primary-foreground/60 max-w-xl mb-10 leading-relaxed">
             Record sales via voice, photo, or text. The AI handles double-entry accounting, 
             inventory, and reconciliation — automatically.
           </p>
         </FadeIn>
 
         <FadeIn delay={0.3}>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-13 shadow-lg shadow-accent/25">
+          <div className="flex flex-col sm:flex-row gap-4 mb-14">
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-13 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30">
               Get Started Free <ArrowRight className="ml-1 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 font-semibold text-base px-8 h-13">
+            <Button size="lg" variant="outline" className="border-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-base px-8 h-13">
               <Play className="mr-1 h-4 w-4" /> See How It Works
             </Button>
           </div>
         </FadeIn>
+
+        {/* Input method pills */}
+        <div className="flex flex-wrap gap-3">
+          <FloatingInput icon={Mic} label="Voice notes" delay={0.5} />
+          <FloatingInput icon={Camera} label="Receipt photos" delay={0.6} />
+          <FloatingInput icon={MessageSquare} label="Text messages" delay={0.7} />
+        </div>
       </div>
     </div>
   </section>
