@@ -23,8 +23,9 @@ const steps = [
 ];
 
 const HowItWorksSection = () => (
-  <section id="how-it-works" className="py-24 md:py-32 bg-background">
-    <div className="container mx-auto px-4 md:px-8">
+  <section id="how-it-works" className="py-24 md:py-32 bg-background relative">
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,hsl(var(--accent)/0.04),transparent_50%)]" />
+    <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-accent font-semibold text-sm uppercase tracking-widest">How It Works</span>
@@ -42,7 +43,7 @@ const HowItWorksSection = () => (
                 <div className="absolute left-[31px] top-[72px] bottom-0 w-px bg-gradient-to-b from-accent/30 to-border" />
               )}
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center relative z-10">
+                <div className="w-16 h-16 rounded-2xl glass-card bg-accent/5 flex items-center justify-center relative z-10">
                   <s.icon className="h-6 w-6 text-accent" />
                 </div>
               </div>

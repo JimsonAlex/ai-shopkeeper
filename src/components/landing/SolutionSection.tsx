@@ -8,27 +8,24 @@ const steps = [
     num: "01",
     title: "Speak, Snap, or Type",
     desc: "Record a sale in seconds — send a voice note, snap a receipt, or just type it out.",
-    color: "from-accent/20 to-accent/5",
   },
   {
     icon: Brain,
     num: "02",
     title: "AI Handles the Math",
     desc: "Automatic double-entry accounting behind the scenes. Every debit has a credit. Always balanced.",
-    color: "from-accent/15 to-accent/5",
   },
   {
     icon: BarChart3,
     num: "03",
     title: "Know Your Profit",
     desc: "Real-time dashboard showing cash, margins, inventory, and who owes you — at a glance.",
-    color: "from-accent/10 to-accent/5",
   },
 ];
 
 const SolutionSection = () => (
   <section id="solution" className="py-24 md:py-32 bg-primary relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
+    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/8 blur-[120px] pointer-events-none" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -48,10 +45,10 @@ const SolutionSection = () => (
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
-              className="relative rounded-2xl p-8 border border-primary-foreground/8 bg-gradient-to-b from-primary-foreground/8 to-transparent hover:border-accent/20 transition-all duration-300 h-full"
+              className="relative rounded-2xl p-8 glass-dark hover:border-accent/20 transition-all duration-300 h-full"
             >
               <span className="font-display text-6xl font-bold text-accent/10 absolute top-4 right-6">{s.num}</span>
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-6`}>
+              <div className="w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center mb-6">
                 <s.icon className="h-6 w-6 text-accent" />
               </div>
               <h3 className="font-display text-xl font-semibold text-primary-foreground mb-3">{s.title}</h3>

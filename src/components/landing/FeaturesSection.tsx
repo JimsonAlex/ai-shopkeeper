@@ -13,7 +13,7 @@ const features = [
 
 const FeaturesSection = () => (
   <section id="features" className="py-24 md:py-32 bg-background relative">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent)/0.03),transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent)/0.06),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -30,13 +30,13 @@ const FeaturesSection = () => (
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
-              className="group bg-card border border-border rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full"
+              className="group glass-card rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full"
             >
               <div className="flex items-start justify-between mb-5">
                 <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center transition-colors">
                   <f.icon className="h-5 w-5 text-accent" />
                 </div>
-                <span className="text-xs font-medium text-muted-foreground px-2.5 py-1 rounded-full bg-muted">{f.tag}</span>
+                <span className="text-xs font-medium text-muted-foreground px-2.5 py-1 rounded-full bg-accent/5 border border-accent/10">{f.tag}</span>
               </div>
               <h3 className="font-display text-lg font-semibold text-foreground mb-2">{f.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>

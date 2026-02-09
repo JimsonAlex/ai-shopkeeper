@@ -56,6 +56,10 @@ export default {
           foreground: "hsl(var(--nav-foreground))",
         },
         glow: "hsl(var(--glow))",
+        glass: {
+          DEFAULT: "hsla(var(--glass))",
+          border: "hsla(var(--glass-border))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

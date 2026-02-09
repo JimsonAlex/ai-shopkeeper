@@ -14,7 +14,7 @@ const testimonials = [
 
 const TrustSection = () => (
   <section className="py-24 md:py-32 bg-primary relative overflow-hidden">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-accent/8 blur-[120px] pointer-events-none" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -31,7 +31,7 @@ const TrustSection = () => (
       <FadeIn delay={0.1}>
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-primary-foreground/5 border border-primary-foreground/8 rounded-2xl p-8">
+            <div key={i} className="glass-dark rounded-2xl p-8">
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.stars }).map((_, j) => (
                   <Star key={j} className="h-4 w-4 fill-accent text-accent" />
@@ -51,7 +51,7 @@ const TrustSection = () => (
         <div className="flex flex-wrap justify-center gap-10">
           {badges.map((b) => (
             <div key={b.label} className="flex items-center gap-3 text-primary-foreground/60">
-              <div className="w-10 h-10 rounded-xl bg-primary-foreground/5 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl glass-dark flex items-center justify-center">
                 <b.icon className="h-5 w-5 text-accent" />
               </div>
               <span className="text-sm font-medium">{b.label}</span>

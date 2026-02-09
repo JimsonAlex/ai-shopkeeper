@@ -57,7 +57,7 @@ const plans = [
 
 const PricingSection = () => (
   <section id="pricing" className="py-24 md:py-32 bg-background relative">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.05),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -79,8 +79,8 @@ const PricingSection = () => (
               transition={{ duration: 0.2 }}
               className={`rounded-2xl p-8 h-full flex flex-col ${
                 plan.featured
-                  ? "bg-primary text-primary-foreground border-2 border-accent/30 shadow-2xl shadow-accent/10 relative"
-                  : "bg-card text-foreground border border-border"
+                  ? "glass-dark bg-primary/90 text-primary-foreground border-2 border-accent/30 shadow-2xl shadow-accent/10 relative"
+                  : "glass-card text-foreground"
               }`}
             >
               {plan.featured && (
@@ -100,7 +100,7 @@ const PricingSection = () => (
               <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm">
-                    <Check className={`h-4 w-4 mt-0.5 flex-shrink-0 ${plan.featured ? "text-accent" : "text-accent"}`} />
+                    <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" />
                     <span className={plan.featured ? "text-primary-foreground/70" : "text-muted-foreground"}>{f}</span>
                   </li>
                 ))}

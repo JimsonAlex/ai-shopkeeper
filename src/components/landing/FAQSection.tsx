@@ -34,8 +34,9 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section id="faq" className="py-24 md:py-32 bg-muted/40">
-    <div className="container mx-auto px-4 md:px-8">
+  <section id="faq" className="py-24 md:py-32 bg-muted/40 relative">
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--accent)/0.04),transparent_50%)]" />
+    <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-accent font-semibold text-sm uppercase tracking-widest">FAQ</span>
@@ -52,7 +53,7 @@ const FAQSection = () => (
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-accent/30 transition-colors"
+                className="glass-card rounded-xl px-6 data-[state=open]:border-accent/30 transition-colors"
               >
                 <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline py-5">
                   {faq.q}
