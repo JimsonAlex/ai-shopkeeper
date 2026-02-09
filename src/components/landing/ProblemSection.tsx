@@ -35,7 +35,7 @@ const pains = [
 
 const ProblemSection = () => (
   <section id="problem" className="py-24 md:py-32 bg-background relative">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.03),transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.06),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -52,14 +52,14 @@ const ProblemSection = () => (
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
-              className="bg-card border border-border rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full flex flex-col"
+              className="glass-card rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full flex flex-col"
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
                 <p.icon className="h-5 w-5 text-accent" />
               </div>
               <h3 className="font-display text-lg font-semibold text-foreground mb-2">{p.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">{p.desc}</p>
-              <div className="pt-4 border-t border-border">
+              <div className="pt-4 border-t border-border/50">
                 <span className="font-display text-2xl font-bold text-accent">{p.stat}</span>
                 <p className="text-muted-foreground text-xs mt-0.5">{p.statLabel}</p>
               </div>

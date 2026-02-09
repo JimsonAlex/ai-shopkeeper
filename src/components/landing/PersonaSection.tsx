@@ -22,7 +22,8 @@ const personas = [
 
 const PersonaSection = () => (
   <section className="py-24 md:py-32 bg-muted/40 relative">
-    <div className="container mx-auto px-4 md:px-8">
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_60%)]" />
+    <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-accent font-semibold text-sm uppercase tracking-widest">Built For You</span>
@@ -35,8 +36,12 @@ const PersonaSection = () => (
       <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {personas.map((p, i) => (
           <FadeIn key={p.name} delay={i * 0.15}>
-            <div className={`rounded-2xl p-8 md:p-10 border h-full relative overflow-hidden ${p.accent ? "bg-primary text-primary-foreground border-primary-foreground/8" : "bg-card text-foreground border-border"}`}>
-              <Quote className={`absolute top-6 right-6 h-12 w-12 ${p.accent ? "text-accent/10" : "text-muted/50"}`} />
+            <div className={`rounded-2xl p-8 md:p-10 h-full relative overflow-hidden ${
+              p.accent 
+                ? "glass-dark bg-primary/80 text-primary-foreground" 
+                : "glass-card text-foreground"
+            }`}>
+              <Quote className={`absolute top-6 right-6 h-12 w-12 ${p.accent ? "text-accent/10" : "text-accent/5"}`} />
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${p.accent ? "bg-accent/15" : "bg-accent/10"}`}>
                 <p.icon className="h-6 w-6 text-accent" />
               </div>

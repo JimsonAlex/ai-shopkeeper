@@ -4,7 +4,7 @@ import FadeIn from "./FadeIn";
 import { motion } from "framer-motion";
 
 const Navbar = () => (
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/90 backdrop-blur-xl border-b border-primary-foreground/5">
+  <nav className="fixed top-0 left-0 right-0 z-50 glass-dark">
     <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
       <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
         Shop AI <span className="text-accent">Copilot</span>
@@ -28,7 +28,7 @@ const FloatingInput = ({ icon: Icon, label, delay }: { icon: React.ElementType; 
     whileInView={{ opacity: 1, scale: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 backdrop-blur-sm"
+    className="glass-dark flex items-center gap-2.5 px-4 py-2.5 rounded-xl"
   >
     <Icon className="h-4 w-4 text-accent" />
     <span className="text-primary-foreground/60 text-sm font-medium">{label}</span>
@@ -38,14 +38,14 @@ const FloatingInput = ({ icon: Icon, label, delay }: { icon: React.ElementType; 
 const Hero = () => (
   <section className="relative min-h-screen flex items-center bg-primary overflow-hidden pt-20">
     {/* Glow effects */}
-    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/8 blur-[150px] pointer-events-none" />
+    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/10 blur-[150px] pointer-events-none" />
     <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none" />
     <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent" />
 
     <div className="container mx-auto px-4 md:px-8 py-20 md:py-32 relative z-10">
       <div className="max-w-3xl">
         <FadeIn>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6 border border-accent/20">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-dark text-accent text-sm font-medium mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             Built for African Retail
           </span>

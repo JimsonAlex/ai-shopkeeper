@@ -4,10 +4,10 @@ import FadeIn from "./FadeIn";
 
 const CTASection = () => (
   <section className="py-24 md:py-32 bg-background relative">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.05),transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.08),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center glass-card rounded-3xl p-12 md:p-16">
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
             Ready to stop guessing and start <span className="text-accent">knowing</span>?
           </h2>
