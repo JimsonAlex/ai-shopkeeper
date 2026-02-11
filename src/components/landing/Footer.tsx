@@ -4,7 +4,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-8 mb-10">
         <div className="md:col-span-2">
           <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
-            Shop AI <span className="text-accent">Copilot</span>
+            Nexus
           </span>
           <p className="text-primary-foreground/50 text-sm mt-3 max-w-xs leading-relaxed">
             Bank-grade accounting for chaotic retail. Record sales your way — the AI handles the rest.
@@ -28,7 +28,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/40">
-        © {new Date().getFullYear()} Shop AI Copilot. All rights reserved.
+        © {new Date().getFullYear()} Nexus. All rights reserved.
       </div>
     </div>
   </footer>

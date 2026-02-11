@@ -46,7 +46,7 @@ const ForgotPassword = () => {
       <Card className="w-full max-w-md relative z-10 border-border/50 shadow-xl">
         <CardHeader className="text-center space-y-1">
           <Link to="/" className="font-display text-2xl font-bold text-accent mb-2 inline-block">
-            NexusLedger
+            Nexus
           </Link>
           <CardTitle className="text-xl font-semibold">Reset your password</CardTitle>
           <CardDescription>

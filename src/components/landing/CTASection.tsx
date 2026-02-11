@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import FadeIn from "./FadeIn";
 
 const CTASection = () => (
@@ -14,9 +15,11 @@ const CTASection = () => (
           <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
             Free to start. No credit card required. Set up in minutes.
           </p>
-          <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-10 h-14 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30">
-            Join the Waitlist <ArrowRight className="ml-1 h-5 w-5" />
-          </Button>
+          <Link to="/register">
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-10 h-14 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30">
+              Get Started Free <ArrowRight className="ml-1 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </FadeIn>
     </div>
