@@ -1,26 +1,40 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Mic, Camera, MessageSquare } from "lucide-react";
+import { ArrowRight, Play, Mic, Camera, MessageSquare, Sun, Moon } from "lucide-react";
 import FadeIn from "./FadeIn";
 import { motion } from "framer-motion";
+import { useTheme } from "@/components/ThemeProvider";
 
-const Navbar = () => (
-  <nav className="fixed top-0 left-0 right-0 z-50 glass-dark">
-    <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
-      <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
-        Shop AI <span className="text-accent">Copilot</span>
-      </span>
-      <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/60 font-medium">
-        <a href="#problem" className="hover:text-primary-foreground transition-colors duration-200">Problem</a>
-        <a href="#solution" className="hover:text-primary-foreground transition-colors duration-200">Solution</a>
-        <a href="#features" className="hover:text-primary-foreground transition-colors duration-200">Features</a>
-        <a href="#pricing" className="hover:text-primary-foreground transition-colors duration-200">Pricing</a>
+const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-dark">
+      <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
+        <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
+          Shop AI <span className="text-accent">Copilot</span>
+        </span>
+        <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/60 font-medium">
+          <a href="#problem" className="hover:text-primary-foreground transition-colors duration-200">Problem</a>
+          <a href="#solution" className="hover:text-primary-foreground transition-colors duration-200">Solution</a>
+          <a href="#features" className="hover:text-primary-foreground transition-colors duration-200">Features</a>
+          <a href="#pricing" className="hover:text-primary-foreground transition-colors duration-200">Pricing</a>
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors duration-200"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+          <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20">
+            Join Waitlist
+          </Button>
+        </div>
       </div>
-      <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20">
-        Join Waitlist
-      </Button>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 const FloatingInput = ({ icon: Icon, label, delay }: { icon: React.ElementType; label: string; delay: number }) => (
   <motion.div
