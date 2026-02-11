@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Mic, Camera, MessageSquare, Sun, Moon } from "lucide-react";
+import { Link } from "react-router-dom";
 import FadeIn from "./FadeIn";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
@@ -11,7 +12,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-dark">
       <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
         <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
-          Shop AI <span className="text-accent">Copilot</span>
+          Nexus
         </span>
         <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/60 font-medium">
           <a href="#problem" className="hover:text-primary-foreground transition-colors duration-200">Problem</a>
@@ -27,9 +28,16 @@ const Navbar = () => {
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20">
-            Join Waitlist
-          </Button>
+          <Link to="/login">
+            <Button size="sm" variant="ghost" className="text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 font-medium">
+              Sign In
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20">
+              Get Started
+            </Button>
+          </Link>
         </div>
       </div>
     </nav>
@@ -90,9 +98,11 @@ const Hero = () => (
 
         <FadeIn delay={0.3}>
           <div className="flex flex-col sm:flex-row gap-4 mb-14">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-13 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30">
-              Get Started Free <ArrowRight className="ml-1 h-5 w-5" />
-            </Button>
+            <Link to="/register">
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-13 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30">
+                Get Started Free <ArrowRight className="ml-1 h-5 w-5" />
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="border-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-base px-8 h-13">
               <Play className="mr-1 h-4 w-4" /> See How It Works
             </Button>
