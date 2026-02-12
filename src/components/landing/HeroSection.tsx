@@ -1,13 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Sun, Moon } from "lucide-react";
+import { ArrowRight, Star, Sun, Moon, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import FadeIn from "./FadeIn";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
 import dashboardImg from "@/assets/dashboard-mockup.png";
+import { useState } from "react";
+
+const navLinks = [
+  { href: "#why-nexus", label: "Why Nexus?" },
+  { href: "#features", label: "Features" },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "#faq", label: "FAQ" },
+];
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-xl border-b border-primary-foreground/5">
@@ -16,11 +26,9 @@ const Navbar = () => {
           Nexus
         </span>
         <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/50 font-medium">
-          <a href="#why-nexus" className="hover:text-primary-foreground transition-colors duration-200">Why Nexus?</a>
-          <a href="#features" className="hover:text-primary-foreground transition-colors duration-200">Features</a>
-          <a href="#how-it-works" className="hover:text-primary-foreground transition-colors duration-200">How it works</a>
-          <a href="#testimonials" className="hover:text-primary-foreground transition-colors duration-200">Testimonials</a>
-          <a href="#faq" className="hover:text-primary-foreground transition-colors duration-200">FAQ</a>
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="hover:text-primary-foreground transition-colors duration-200">{link.label}</a>
+          ))}
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -30,13 +38,51 @@ const Navbar = () => {
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <Link to="/register">
+          <Link to="/register" className="hidden sm:block">
             <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20 rounded-lg">
               Get Started
             </Button>
           </Link>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 rounded-lg text-primary-foreground/50 hover:text-primary-foreground hover:bg-primary-foreground/5 transition-colors duration-200"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="md:hidden overflow-hidden border-t border-primary-foreground/5 bg-primary/95 backdrop-blur-xl"
+          >
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/5 px-4 py-3 rounded-lg text-sm font-medium transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <Link to="/register" onClick={() => setMobileOpen(false)} className="mt-2">
+                <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20 rounded-lg">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
