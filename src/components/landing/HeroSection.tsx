@@ -1,40 +1,37 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Mic, Camera, MessageSquare, Sun, Moon } from "lucide-react";
+import { ArrowRight, Star, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
 import FadeIn from "./FadeIn";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
+import dashboardImg from "@/assets/dashboard-mockup.png";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-dark">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-xl border-b border-primary-foreground/5">
       <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
         <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
           Nexus
         </span>
-        <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/60 font-medium">
-          <a href="#problem" className="hover:text-primary-foreground transition-colors duration-200">Problem</a>
-          <a href="#solution" className="hover:text-primary-foreground transition-colors duration-200">Solution</a>
+        <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/50 font-medium">
+          <a href="#why-nexus" className="hover:text-primary-foreground transition-colors duration-200">Why Nexus?</a>
           <a href="#features" className="hover:text-primary-foreground transition-colors duration-200">Features</a>
-          <a href="#pricing" className="hover:text-primary-foreground transition-colors duration-200">Pricing</a>
+          <a href="#how-it-works" className="hover:text-primary-foreground transition-colors duration-200">How it works</a>
+          <a href="#testimonials" className="hover:text-primary-foreground transition-colors duration-200">Testimonials</a>
+          <a href="#faq" className="hover:text-primary-foreground transition-colors duration-200">FAQ</a>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors duration-200"
+            className="p-2 rounded-lg text-primary-foreground/50 hover:text-primary-foreground hover:bg-primary-foreground/5 transition-colors duration-200"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <Link to="/login">
-            <Button size="sm" variant="ghost" className="text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 font-medium">
-              Sign In
-            </Button>
-          </Link>
           <Link to="/register">
-            <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20">
+            <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20 rounded-lg">
               Get Started
             </Button>
           </Link>
@@ -44,97 +41,97 @@ const Navbar = () => {
   );
 };
 
-const FloatingInput = ({ icon: Icon, label, delay }: { icon: React.ElementType; label: string; delay: number }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8, y: 20 }}
-    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    className="glass-dark flex items-center gap-2.5 px-4 py-2.5 rounded-xl"
-  >
-    <Icon className="h-4 w-4 text-accent" />
-    <span className="text-primary-foreground/60 text-sm font-medium">{label}</span>
-  </motion.div>
-);
-
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center bg-primary overflow-hidden pt-20">
-    {/* Glow effects */}
-    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/10 blur-[150px] pointer-events-none" />
-    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none" />
-    <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-primary to-transparent" />
+  <section className="relative min-h-screen flex flex-col items-center justify-center bg-primary overflow-hidden pt-20">
+    {/* Light rays from top */}
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[800px]">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[400px] bg-gradient-to-b from-accent/30 to-transparent rotate-[-15deg] origin-top" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[500px] bg-gradient-to-b from-accent/20 to-transparent rotate-[-8deg] origin-top" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[600px] bg-gradient-to-b from-accent/40 to-transparent rotate-[0deg] origin-top" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[500px] bg-gradient-to-b from-accent/20 to-transparent rotate-[8deg] origin-top" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[400px] bg-gradient-to-b from-accent/30 to-transparent rotate-[15deg] origin-top" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[350px] bg-gradient-to-b from-accent/15 to-transparent rotate-[-25deg] origin-top" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[350px] bg-gradient-to-b from-accent/15 to-transparent rotate-[25deg] origin-top" />
+    </div>
 
-    <div className="container mx-auto px-4 md:px-8 py-20 md:py-32 relative z-10">
-      <div className="max-w-3xl">
-        <FadeIn>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-dark text-accent text-sm font-medium mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            AI-Powered Retail Accounting
-          </span>
-        </FadeIn>
+    {/* Radial glow */}
+    <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-accent/8 blur-[150px] pointer-events-none" />
 
-        <FadeIn delay={0.1}>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-[1.08] mb-6">
-            <motion.span
-              className="block overflow-hidden"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-            >
-              Precision Accounting
-            </motion.span>
-            <motion.span
-              className="block overflow-hidden"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-            >
-              for{" "}
-              <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-accent via-accent/80 to-accent bg-clip-text text-transparent">
-                  Chaotic Retail
-                </span>
-                <motion.span
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent to-accent/40 rounded-full"
-                  initial={{ scaleX: 0, originX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                />
-              </span>
-            </motion.span>
-          </h1>
-        </FadeIn>
+    <div className="container mx-auto px-4 md:px-8 py-20 md:py-32 relative z-10 text-center">
+      <FadeIn>
+        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-[1.1] mb-6 max-w-4xl mx-auto">
+          <motion.span
+            className="block"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            Take Control of Your
+          </motion.span>
+          <motion.span
+            className="block"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+          >
+            <span className="text-accent">Retail Finances</span>
+          </motion.span>
+        </h1>
+      </FadeIn>
 
-        <FadeIn delay={0.2}>
-          <p className="text-lg md:text-xl text-primary-foreground/60 max-w-xl mb-10 leading-relaxed">
-            Record sales via voice, photo, or text. The AI handles double-entry accounting, 
-            inventory, and reconciliation — automatically.
-          </p>
-        </FadeIn>
+      <FadeIn delay={0.2}>
+        <p className="text-base md:text-lg text-primary-foreground/50 max-w-xl mx-auto mb-10 leading-relaxed">
+          Nexus offers a seamless, AI-powered experience for managing your shop's accounting. Voice input, automatic bookkeeping, and real-time profit tracking.
+        </p>
+      </FadeIn>
 
-        <FadeIn delay={0.3}>
-          <div className="flex flex-col sm:flex-row gap-5 mb-14">
-            <Link to="/register">
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-lg px-10 h-14 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30 rounded-xl">
-                Get Started Free <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-lg px-10 h-14 rounded-xl">
-              <Play className="mr-2 h-5 w-5" /> See How It Works
+      <FadeIn delay={0.3}>
+        <Link to="/register">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-block"
+          >
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-10 h-14 shadow-lg shadow-accent/25 rounded-xl">
+              Get started now <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-          </div>
-        </FadeIn>
+          </motion.div>
+        </Link>
+      </FadeIn>
 
-        {/* Input method pills */}
-        <div className="flex flex-wrap gap-3">
-          <FloatingInput icon={Mic} label="Voice notes" delay={0.5} />
-          <FloatingInput icon={Camera} label="Receipt photos" delay={0.6} />
-          <FloatingInput icon={MessageSquare} label="Text messages" delay={0.7} />
+      {/* Trust badge */}
+      <FadeIn delay={0.4}>
+        <div className="mt-10 flex flex-col items-center gap-2">
+          <p className="text-primary-foreground/30 text-sm">They trust us</p>
+          <div className="flex items-center gap-1.5">
+            {[1, 2, 3, 4].map((i) => (
+              <Star key={i} className="h-4 w-4 fill-accent text-accent" />
+            ))}
+            <Star className="h-4 w-4 fill-accent/50 text-accent/50" />
+            <span className="text-primary-foreground/60 text-sm font-semibold ml-1.5">4.9</span>
+          </div>
         </div>
-      </div>
+      </FadeIn>
+
+      {/* Dashboard mockup */}
+      <FadeIn delay={0.5}>
+        <motion.div
+          className="mt-16 max-w-5xl mx-auto rounded-2xl overflow-hidden border border-primary-foreground/10 shadow-2xl shadow-accent/5"
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+        >
+          <img
+            src={dashboardImg}
+            alt="Nexus Dashboard - AI-powered retail accounting"
+            className="w-full h-auto"
+            loading="lazy"
+          />
+        </motion.div>
+      </FadeIn>
     </div>
   </section>
 );

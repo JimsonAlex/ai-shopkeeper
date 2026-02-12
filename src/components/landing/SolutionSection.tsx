@@ -1,103 +1,96 @@
-import { Mic, Brain, BarChart3, ArrowRight } from "lucide-react";
+import { Mic, Camera, MessageSquare, BarChart3, TrendingUp, Wallet } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import step1Img from "@/assets/solution-step1-input.png";
-import step2Img from "@/assets/solution-step2-ai.png";
-import step3Img from "@/assets/solution-step3-profit.png";
+import FadeIn from "./FadeIn";
 
-const steps = [
-  {
-    icon: Mic,
-    num: "01",
-    title: "Speak, Snap, or Type",
-    desc: "Record a sale in seconds — send a voice note, snap a receipt, or just type it out.",
-    image: step1Img,
-  },
-  {
-    icon: Brain,
-    num: "02",
-    title: "AI Handles the Math",
-    desc: "Automatic double-entry accounting behind the scenes. Every debit has a credit. Always balanced.",
-    image: step2Img,
-  },
-  {
-    icon: BarChart3,
-    num: "03",
-    title: "Know Your Profit",
-    desc: "Real-time dashboard showing cash, margins, inventory, and who owes you — at a glance.",
-    image: step3Img,
-  },
+const metrics = [
+  { icon: Wallet, label: "Cash", value: "KES 142K", change: "+12%", positive: true },
+  { icon: TrendingUp, label: "Revenue", value: "KES 380K", change: "+8%", positive: true },
+  { icon: BarChart3, label: "Profit", value: "KES 95K", change: "+15%", positive: true },
+];
+
+const inputModes = [
+  { icon: Mic, label: "Voice", desc: "Send a voice note like WhatsApp" },
+  { icon: Camera, label: "Photo", desc: "Snap a receipt, AI extracts it" },
+  { icon: MessageSquare, label: "Text", desc: "Type in plain language" },
 ];
 
 const SolutionSection = () => (
   <section id="solution" className="py-24 md:py-32 bg-primary relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/8 blur-[120px] pointer-events-none" />
+    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
     <div className="container mx-auto px-4 md:px-8 relative">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center max-w-2xl mx-auto mb-16"
-      >
-        <motion.span
-          className="text-accent font-semibold text-sm uppercase tracking-widest inline-block"
-          initial={{ opacity: 0, letterSpacing: "0.05em" }}
-          whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+      <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+        {/* Left: metrics display */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="space-y-4"
         >
-          Meet Your AI Copilot
-        </motion.span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
-          No accounting knowledge required
-        </h2>
-        <p className="text-primary-foreground/50 mt-5 text-lg">
-          You run your shop. The AI runs your books.
-        </p>
-      </motion.div>
+          {metrics.map((m, i) => (
+            <motion.div
+              key={m.label}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="glass-dark rounded-xl p-5 flex items-center gap-4"
+            >
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <m.icon className="h-5 w-5 text-accent" />
+              </div>
+              <div className="flex-1">
+                <p className="text-primary-foreground/40 text-xs uppercase tracking-wider">{m.label}</p>
+                <p className="text-primary-foreground font-display text-xl font-bold">{m.value}</p>
+              </div>
+              <span className={`text-sm font-semibold ${m.positive ? "text-accent" : "text-destructive"}`}>
+                {m.change}
+              </span>
+            </motion.div>
+          ))}
 
-      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {steps.map((s, i) => (
-          <motion.div
-            key={s.num}
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" as const }}
-            whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="relative rounded-2xl glass-dark hover:border-accent/20 transition-all duration-300 h-full overflow-hidden flex flex-col"
-          >
-            {/* Image */}
-            <div className="relative h-44 overflow-hidden">
-              <img
-                src={s.image}
-                alt={s.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <span className="font-display text-6xl font-bold text-white/10 absolute top-3 right-4">{s.num}</span>
-            </div>
-
-            {/* Content */}
-            <div className="p-7 flex-1 flex flex-col">
+          <div className="flex gap-3 pt-4">
+            {inputModes.map((mode, i) => (
               <motion.div
-                className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center mb-4 relative z-10 border border-accent/20"
-                initial={{ rotate: -20, opacity: 0 }}
-                whileInView={{ rotate: 0, opacity: 1 }}
+                key={mode.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.15, type: "spring" }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                className="flex-1 glass-dark rounded-xl p-4 text-center"
               >
-                <s.icon className="h-5 w-5 text-accent" />
+                <mode.icon className="h-5 w-5 text-accent mx-auto mb-2" />
+                <p className="text-primary-foreground text-xs font-semibold">{mode.label}</p>
+                <p className="text-primary-foreground/30 text-[10px] mt-1">{mode.desc}</p>
               </motion.div>
-              <h3 className="font-display text-xl font-semibold text-primary-foreground mb-3">{s.title}</h3>
-              <p className="text-primary-foreground/50 text-sm leading-relaxed flex-1">{s.desc}</p>
-            </div>
+            ))}
+          </div>
+        </motion.div>
 
-            {i < steps.length - 1 && (
-              <ArrowRight className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-accent/30 translate-x-full" />
-            )}
-          </motion.div>
-        ))}
+        {/* Right: text */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <FadeIn>
+            <span className="text-accent font-semibold text-sm uppercase tracking-widest">All Your Data, One Platform</span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 mb-5 leading-tight">
+              Record, track, and profit on a single platform
+            </h2>
+            <p className="text-primary-foreground/50 text-base leading-relaxed mb-8">
+              Voice notes, receipt photos, or quick text — record sales your way. The AI creates proper double-entry accounting behind the scenes. See your real profit, cash position, and who owes you — all in one seamless experience.
+            </p>
+            <Link to="/register">
+              <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-8 h-12 rounded-xl shadow-lg shadow-accent/20">
+                Start tracking now
+              </Button>
+            </Link>
+          </FadeIn>
+        </motion.div>
       </div>
     </div>
   </section>

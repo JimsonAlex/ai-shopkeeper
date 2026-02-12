@@ -1,92 +1,57 @@
-import { BookOpen, Mic, Package, CreditCard, Scale, ShieldAlert, Undo2, HelpCircle, Users, Lock } from "lucide-react";
+import { BookOpen, Mic, Package, CreditCard, Scale, ShieldAlert, Undo2, HelpCircle, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
   {
     icon: BookOpen,
-    title: "Immutable Double-Entry Ledger",
-    desc: "Every transaction auto-balanced across assets, liabilities, equity, revenue, and expenses. The ledger is append-only — no deletions, ever.",
-    tag: "Core",
-    detail: "Bank-grade accuracy",
+    title: "Double-Entry Ledger",
+    desc: "Every transaction auto-balanced. The ledger is append-only — no deletions, ever.",
   },
   {
     icon: Mic,
-    title: "AI-Driven Data Capture",
-    desc: "Voice notes, receipt photos, or quick text — the AI parses amounts, products, and payment terms, then creates proper journal entries.",
-    tag: "AI",
-    detail: "3 input modes",
+    title: "AI Data Capture",
+    desc: "Voice, photo, or text — the AI parses everything and creates proper journal entries.",
   },
   {
     icon: Package,
-    title: "Hybrid Inventory (FIFO)",
-    desc: "High-value items like cement get real-time stock tracking. High-velocity items like nails are inferred and updated via periodic cycle counts.",
-    tag: "Inventory",
-    detail: "Explicit + Implicit",
+    title: "FIFO Inventory",
+    desc: "Real-time stock for high-value items. Inferred tracking for fast-movers.",
   },
   {
     icon: Undo2,
-    title: "Reversing Entry Corrections",
-    desc: "Made a mistake? Corrections are posted as reversing entries — your original record stays intact and the audit trail remains clean.",
-    tag: "Audit",
-    detail: "Immutable history",
+    title: "Reversing Corrections",
+    desc: "Mistakes fixed via reversing entries. Original records stay intact.",
   },
   {
     icon: HelpCircle,
-    title: "Suspense Account Routing",
-    desc: "Can't categorize an input? It's booked to a Suspense account — never ignored, never lost. Resolve it later when you have clarity.",
-    tag: "Safety",
-    detail: "Zero data loss",
+    title: "Suspense Routing",
+    desc: "Can't categorize? Booked to Suspense — never lost. Resolve later.",
   },
   {
     icon: CreditCard,
-    title: "Credit Sale Management",
-    desc: "Track who owes you with automatic reminders. Partial payments, payment terms, and aging reports — all handled.",
-    tag: "Sales",
-    detail: "Debt tracking",
+    title: "Credit Management",
+    desc: "Track who owes you with reminders, partial payments, and aging reports.",
   },
   {
     icon: Scale,
     title: "Daily Reconciliation",
-    desc: "End-of-day cash count vs. system balance. Spot discrepancies instantly before they become problems.",
-    tag: "Finance",
-    detail: "Every shilling tracked",
+    desc: "Cash count vs. system balance. Spot discrepancies before they grow.",
   },
   {
     icon: ShieldAlert,
-    title: "AI Fraud Detection",
-    desc: "Pattern analysis flags suspicious voids, unusual refunds, and inventory shortages before they snowball.",
-    tag: "Security",
-    detail: "Early warning system",
+    title: "Fraud Detection",
+    desc: "AI flags suspicious voids, unusual refunds, and inventory shortages.",
   },
   {
     icon: Lock,
-    title: "Absolute Tenant Isolation",
-    desc: "Each shop's data is completely walled off. No cross-tenant access, no shared databases. Your numbers are yours alone.",
-    tag: "Privacy",
-    detail: "Zero-trust architecture",
+    title: "Tenant Isolation",
+    desc: "Each shop's data is walled off. No cross-tenant access. Your data is yours.",
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
-
 const FeaturesSection = () => (
   <section id="features" className="py-24 md:py-32 bg-background relative">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent)/0.06),transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent)/0.04),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -95,53 +60,37 @@ const FeaturesSection = () => (
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="text-center max-w-2xl mx-auto mb-16"
       >
-        <motion.span
-          className="text-accent font-semibold text-sm uppercase tracking-widest inline-block"
-          initial={{ opacity: 0, letterSpacing: "0.05em" }}
-          whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          Features
-        </motion.span>
+        <span className="text-accent font-semibold text-sm uppercase tracking-widest">Features</span>
         <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
-          Ramp for chaotic retail — every feature earns its place
+          Everything your shop needs
         </h2>
-        <p className="text-muted-foreground mt-5 text-lg">
-          Double-entry is mandatory. The ledger is immutable. Nothing gets lost.
+        <p className="text-muted-foreground mt-4 text-base">
+          Built for chaotic retail — every feature earns its place.
         </p>
       </motion.div>
 
       <motion.div
-        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
-        variants={containerVariants}
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
+        variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
       >
         {features.map((f) => (
           <motion.div
             key={f.title}
-            variants={cardVariants}
-            whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="group glass-card rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full flex flex-col"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+            }}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="group glass-card rounded-2xl p-6 hover:border-accent/20 transition-all duration-300"
           >
-            <div className="flex items-start justify-between mb-5">
-              <motion.div
-                className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center transition-colors"
-                whileInView={{ rotate: [0, -8, 8, 0] }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <f.icon className="h-5 w-5 text-accent" />
-              </motion.div>
-              <span className="text-xs font-medium text-muted-foreground px-2.5 py-1 rounded-full bg-accent/5 border border-accent/10">{f.tag}</span>
+            <div className="w-10 h-10 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center mb-4 transition-colors">
+              <f.icon className="h-5 w-5 text-accent" />
             </div>
-            <h3 className="font-display text-lg font-semibold text-foreground mb-2">{f.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
-            <div className="mt-4 pt-3 border-t border-border/50">
-              <span className="text-xs font-medium text-accent">{f.detail}</span>
-            </div>
+            <h3 className="font-display text-base font-semibold text-foreground mb-2">{f.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
           </motion.div>
         ))}
       </motion.div>
