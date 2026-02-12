@@ -27,7 +27,7 @@ const Navbar = () => {
         </span>
         <div className="hidden md:flex items-center gap-8 text-sm text-primary-foreground/50 font-medium">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-primary-foreground transition-colors duration-200">{link.label}</a>
+            <a key={link.href} href={link.href} onClick={(e) => { e.preventDefault(); document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-primary-foreground transition-colors duration-200">{link.label}</a>
           ))}
         </div>
         <div className="flex items-center gap-3">
@@ -68,7 +68,7 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => { e.preventDefault(); setMobileOpen(false); document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }); }}
                   className="text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/5 px-4 py-3 rounded-lg text-sm font-medium transition-colors"
                 >
                   {link.label}
