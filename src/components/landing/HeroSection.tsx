@@ -75,22 +75,36 @@ const Hero = () => (
 
         <FadeIn delay={0.1}>
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-[1.08] mb-6">
-            <span className="block text-primary-foreground/50 text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 tracking-wide uppercase">
-              Bank-Grade Accounting
-            </span>
-            <span className="block">
+            <motion.span
+              className="block overflow-hidden"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              Precision Accounting
+            </motion.span>
+            <motion.span
+              className="block overflow-hidden"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+            >
               for{" "}
               <span className="relative inline-block">
-                <span className="text-accent">Chaotic Retail</span>
+                <span className="bg-gradient-to-r from-accent via-accent/80 to-accent bg-clip-text text-transparent">
+                  Chaotic Retail
+                </span>
                 <motion.span
-                  className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-accent/60 via-accent to-accent/60 rounded-full"
-                  initial={{ scaleX: 0 }}
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent to-accent/40 rounded-full"
+                  initial={{ scaleX: 0, originX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
                 />
               </span>
-            </span>
+            </motion.span>
           </h1>
         </FadeIn>
 
