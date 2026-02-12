@@ -34,7 +34,7 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section id="faq" className="py-24 md:py-32 bg-background relative">
+  <section id="faq" className="py-24 md:py-32 bg-primary relative">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
@@ -45,7 +45,7 @@ const FAQSection = () => (
         className="text-center max-w-2xl mx-auto mb-14"
       >
         <span className="text-accent font-semibold text-sm uppercase tracking-widest">FAQ</span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
           Got questions? We've got answers
         </h2>
       </motion.div>
@@ -62,12 +62,12 @@ const FAQSection = () => (
             <AccordionItem
               key={i}
               value={`item-${i}`}
-              className="glass-card rounded-xl px-6 data-[state=open]:border-accent/20 transition-colors"
+              className="rounded-xl px-6 border border-primary-foreground/8 bg-primary-foreground/[0.02] data-[state=open]:border-accent/20 transition-colors"
             >
-              <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline py-5">
+              <AccordionTrigger className="text-left font-display font-semibold text-primary-foreground hover:no-underline py-5">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-5">
+              <AccordionContent className="text-primary-foreground/40 text-sm leading-relaxed pb-5">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

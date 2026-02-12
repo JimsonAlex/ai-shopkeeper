@@ -53,7 +53,7 @@ const plans = [
 
 const PricingSection = () => (
   <section id="pricing" className="py-24 md:py-32 bg-primary relative">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.05),transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -66,7 +66,7 @@ const PricingSection = () => (
         <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
           Simple pricing, no surprises
         </h2>
-        <p className="text-primary-foreground/40 mt-4 text-base">
+        <p className="text-primary-foreground/30 mt-4 text-sm">
           Start free. Upgrade when you're ready.
         </p>
       </motion.div>
@@ -86,10 +86,10 @@ const PricingSection = () => (
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
             }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className={`rounded-2xl p-8 flex flex-col ${
+            className={`rounded-2xl p-8 flex flex-col border ${
               plan.featured
-                ? "glass-dark border-2 border-accent/30 shadow-2xl shadow-accent/10 relative"
-                : "glass-dark"
+                ? "border-accent/30 bg-primary-foreground/[0.04] shadow-2xl shadow-accent/5 relative"
+                : "border-primary-foreground/8 bg-primary-foreground/[0.02]"
             }`}
           >
             {plan.featured && (
@@ -101,25 +101,25 @@ const PricingSection = () => (
               <h3 className="font-display text-lg font-semibold text-primary-foreground mb-2">{plan.name}</h3>
               <div className="flex items-baseline gap-1">
                 <span className="font-display text-4xl font-bold text-primary-foreground">{plan.price}</span>
-                {plan.period && <span className="text-primary-foreground/40">{plan.period}</span>}
+                {plan.period && <span className="text-primary-foreground/30">{plan.period}</span>}
               </div>
-              <p className="text-sm mt-2 text-primary-foreground/40">{plan.desc}</p>
+              <p className="text-sm mt-2 text-primary-foreground/30">{plan.desc}</p>
             </div>
 
             <ul className="space-y-3 mb-8 flex-1">
               {plan.features.map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm">
                   <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" />
-                  <span className="text-primary-foreground/60">{f}</span>
+                  <span className="text-primary-foreground/50">{f}</span>
                 </li>
               ))}
             </ul>
 
             <Button
-              className={`w-full font-semibold rounded-xl ${
+              className={`w-full font-semibold rounded-xl h-11 ${
                 plan.featured
-                  ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/25"
-                  : "bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/15"
+                  ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20"
+                  : "bg-primary-foreground/8 text-primary-foreground hover:bg-primary-foreground/12"
               }`}
             >
               {plan.cta} {plan.featured && <ArrowRight className="ml-1 h-4 w-4" />}

@@ -50,7 +50,7 @@ const features = [
 ];
 
 const FeaturesSection = () => (
-  <section id="features" className="py-24 md:py-32 bg-background relative">
+  <section id="features" className="py-24 md:py-32 bg-primary relative">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent)/0.04),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
@@ -61,10 +61,10 @@ const FeaturesSection = () => (
         className="text-center max-w-2xl mx-auto mb-16"
       >
         <span className="text-accent font-semibold text-sm uppercase tracking-widest">Features</span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
           Everything your shop needs
         </h2>
-        <p className="text-muted-foreground mt-4 text-base">
+        <p className="text-primary-foreground/40 mt-4 text-base">
           Built for chaotic retail — every feature earns its place.
         </p>
       </motion.div>
@@ -84,13 +84,13 @@ const FeaturesSection = () => (
               visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
             }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="group glass-card rounded-2xl p-6 hover:border-accent/20 transition-all duration-300"
+            className="group rounded-2xl p-7 border border-primary-foreground/8 bg-primary-foreground/[0.02] hover:border-accent/20 hover:bg-primary-foreground/[0.04] transition-all duration-300"
           >
-            <div className="w-10 h-10 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center mb-4 transition-colors">
+            <div className="w-11 h-11 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center mb-5 transition-colors">
               <f.icon className="h-5 w-5 text-accent" />
             </div>
-            <h3 className="font-display text-base font-semibold text-foreground mb-2">{f.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+            <h3 className="font-display text-base font-semibold text-primary-foreground mb-2">{f.title}</h3>
+            <p className="text-primary-foreground/40 text-sm leading-relaxed">{f.desc}</p>
           </motion.div>
         ))}
       </motion.div>
