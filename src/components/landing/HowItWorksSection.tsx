@@ -24,7 +24,7 @@ const steps = [
 
 const HowItWorksSection = () => (
   <section id="how-it-works" className="py-24 md:py-32 bg-primary relative overflow-hidden">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_50%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -39,7 +39,7 @@ const HowItWorksSection = () => (
         </h2>
       </motion.div>
 
-      <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {steps.map((s, i) => (
           <motion.div
             key={s.num}
@@ -48,10 +48,10 @@ const HowItWorksSection = () => (
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="glass-dark rounded-2xl p-8 text-center relative"
+            className="rounded-2xl p-8 text-center relative border border-primary-foreground/8 bg-primary-foreground/[0.02] hover:border-accent/20 transition-all duration-300"
           >
             <motion.span
-              className="font-display text-6xl font-black text-accent/10 absolute top-4 right-6"
+              className="font-display text-6xl font-black text-accent/8 absolute top-4 right-6"
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -63,7 +63,7 @@ const HowItWorksSection = () => (
               <s.icon className="h-6 w-6 text-accent" />
             </div>
             <h3 className="font-display text-xl font-bold text-primary-foreground mb-3">{s.title}</h3>
-            <p className="text-primary-foreground/40 text-sm leading-relaxed">{s.desc}</p>
+            <p className="text-primary-foreground/35 text-sm leading-relaxed">{s.desc}</p>
           </motion.div>
         ))}
       </div>

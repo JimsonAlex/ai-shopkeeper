@@ -11,9 +11,9 @@ const metrics = [
 ];
 
 const inputModes = [
-  { icon: Mic, label: "Voice", desc: "Send a voice note like WhatsApp" },
-  { icon: Camera, label: "Photo", desc: "Snap a receipt, AI extracts it" },
-  { icon: MessageSquare, label: "Text", desc: "Type in plain language" },
+  { icon: Mic, label: "Voice", desc: "Send a voice note" },
+  { icon: Camera, label: "Photo", desc: "Snap a receipt" },
+  { icon: MessageSquare, label: "Text", desc: "Type it out" },
 ];
 
 const SolutionSection = () => (
@@ -36,13 +36,13 @@ const SolutionSection = () => (
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass-dark rounded-xl p-5 flex items-center gap-4"
+              className="rounded-xl p-5 flex items-center gap-4 border border-primary-foreground/8 bg-primary-foreground/[0.02]"
             >
               <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
                 <m.icon className="h-5 w-5 text-accent" />
               </div>
               <div className="flex-1">
-                <p className="text-primary-foreground/40 text-xs uppercase tracking-wider">{m.label}</p>
+                <p className="text-primary-foreground/30 text-xs uppercase tracking-wider">{m.label}</p>
                 <p className="text-primary-foreground font-display text-xl font-bold">{m.value}</p>
               </div>
               <span className={`text-sm font-semibold ${m.positive ? "text-accent" : "text-destructive"}`}>
@@ -59,11 +59,11 @@ const SolutionSection = () => (
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                className="flex-1 glass-dark rounded-xl p-4 text-center"
+                className="flex-1 rounded-xl p-4 text-center border border-primary-foreground/8 bg-primary-foreground/[0.02]"
               >
                 <mode.icon className="h-5 w-5 text-accent mx-auto mb-2" />
                 <p className="text-primary-foreground text-xs font-semibold">{mode.label}</p>
-                <p className="text-primary-foreground/30 text-[10px] mt-1">{mode.desc}</p>
+                <p className="text-primary-foreground/25 text-[10px] mt-1">{mode.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -81,8 +81,8 @@ const SolutionSection = () => (
             <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 mb-5 leading-tight">
               Record, track, and profit on a single platform
             </h2>
-            <p className="text-primary-foreground/50 text-base leading-relaxed mb-8">
-              Voice notes, receipt photos, or quick text — record sales your way. The AI creates proper double-entry accounting behind the scenes. See your real profit, cash position, and who owes you — all in one seamless experience.
+            <p className="text-primary-foreground/40 text-base leading-relaxed mb-8">
+              Voice notes, receipt photos, or quick text — record sales your way. The AI creates proper double-entry accounting behind the scenes. See your real profit, cash position, and who owes you.
             </p>
             <Link to="/register">
               <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-8 h-12 rounded-xl shadow-lg shadow-accent/20">

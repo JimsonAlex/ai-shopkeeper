@@ -43,19 +43,40 @@ const Navbar = () => {
 
 const Hero = () => (
   <section className="relative min-h-screen flex flex-col items-center justify-center bg-primary overflow-hidden pt-20">
-    {/* Light rays from top */}
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[800px]">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[400px] bg-gradient-to-b from-accent/30 to-transparent rotate-[-15deg] origin-top" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[500px] bg-gradient-to-b from-accent/20 to-transparent rotate-[-8deg] origin-top" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[600px] bg-gradient-to-b from-accent/40 to-transparent rotate-[0deg] origin-top" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[500px] bg-gradient-to-b from-accent/20 to-transparent rotate-[8deg] origin-top" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[400px] bg-gradient-to-b from-accent/30 to-transparent rotate-[15deg] origin-top" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[350px] bg-gradient-to-b from-accent/15 to-transparent rotate-[-25deg] origin-top" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[350px] bg-gradient-to-b from-accent/15 to-transparent rotate-[25deg] origin-top" />
+    {/* Aurora curtain glow - wide diffused effect like Cryptix */}
+    <div className="absolute top-0 left-0 right-0 h-[700px] overflow-hidden pointer-events-none">
+      {/* Main wide aurora */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px]"
+        style={{
+          background: `
+            radial-gradient(ellipse 100% 80% at 50% 0%, hsl(152 100% 41% / 0.15) 0%, transparent 70%),
+            radial-gradient(ellipse 60% 60% at 40% 0%, hsl(152 100% 41% / 0.1) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 60% at 60% 0%, hsl(152 100% 41% / 0.1) 0%, transparent 60%)
+          `
+        }}
+      />
+      {/* Vertical light streaks */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[500px]">
+        {[-120, -80, -40, -15, 0, 15, 40, 80, 120].map((offset, i) => (
+          <div
+            key={i}
+            className="absolute top-0 h-full"
+            style={{
+              left: `calc(50% + ${offset}px)`,
+              width: i === 4 ? '3px' : '2px',
+              background: `linear-gradient(to bottom, hsl(152 100% 41% / ${i === 4 ? 0.4 : 0.15 + Math.random() * 0.15}), transparent 70%)`,
+              filter: 'blur(1px)',
+            }}
+          />
+        ))}
+      </div>
+      {/* Wide ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[400px]"
+        style={{
+          background: 'radial-gradient(ellipse 100% 100% at 50% 0%, hsl(152 100% 41% / 0.08) 0%, transparent 70%)'
+        }}
+      />
     </div>
-
-    {/* Radial glow */}
-    <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-accent/8 blur-[150px] pointer-events-none" />
 
     <div className="container mx-auto px-4 md:px-8 py-20 md:py-32 relative z-10 text-center">
       <FadeIn>
@@ -90,7 +111,7 @@ const Hero = () => (
       <FadeIn delay={0.3}>
         <Link to="/register">
           <motion.div
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="inline-block"
           >
@@ -109,8 +130,8 @@ const Hero = () => (
             {[1, 2, 3, 4].map((i) => (
               <Star key={i} className="h-4 w-4 fill-accent text-accent" />
             ))}
-            <Star className="h-4 w-4 fill-accent/50 text-accent/50" />
-            <span className="text-primary-foreground/60 text-sm font-semibold ml-1.5">4.9</span>
+            <Star className="h-4 w-4 fill-accent/40 text-accent/40" />
+            <span className="text-primary-foreground/60 text-sm font-semibold ml-1.5">4,9</span>
           </div>
         </div>
       </FadeIn>
@@ -118,7 +139,7 @@ const Hero = () => (
       {/* Dashboard mockup */}
       <FadeIn delay={0.5}>
         <motion.div
-          className="mt-16 max-w-5xl mx-auto rounded-2xl overflow-hidden border border-primary-foreground/10 shadow-2xl shadow-accent/5"
+          className="mt-16 max-w-5xl mx-auto rounded-2xl overflow-hidden border border-primary-foreground/8 shadow-2xl shadow-black/30"
           initial={{ opacity: 0, y: 60, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
