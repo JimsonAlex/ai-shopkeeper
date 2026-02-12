@@ -75,14 +75,13 @@ const SolutionSection = () => (
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
               <span className="font-display text-6xl font-bold text-white/10 absolute top-3 right-4">{s.num}</span>
             </div>
 
             {/* Content */}
             <div className="p-7 flex-1 flex flex-col">
               <motion.div
-                className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center mb-4 -mt-12 relative z-10 border border-accent/20"
+                className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center mb-4 relative z-10 border border-accent/20"
                 initial={{ rotate: -20, opacity: 0 }}
                 whileInView={{ rotate: 0, opacity: 1 }}
                 viewport={{ once: true }}
