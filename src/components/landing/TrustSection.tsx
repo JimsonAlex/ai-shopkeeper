@@ -1,10 +1,9 @@
-import { Shield, Lock, Globe, Star } from "lucide-react";
+import { Shield, Lock, Star } from "lucide-react";
 import FadeIn from "./FadeIn";
 
 const badges = [
   { icon: Shield, label: "Bank-Grade Accuracy" },
   { icon: Lock, label: "Your Data Stays Yours" },
-  { icon: Globe, label: "Built for African Retail" },
 ];
 
 const testimonials = [
