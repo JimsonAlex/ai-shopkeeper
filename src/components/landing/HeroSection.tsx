@@ -116,14 +116,14 @@ const Hero = () => (
         </FadeIn>
 
         <FadeIn delay={0.3}>
-          <div className="flex flex-col sm:flex-row gap-4 mb-14">
+          <div className="flex flex-col sm:flex-row gap-5 mb-14">
             <Link to="/register">
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 h-13 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30">
-                Get Started Free <ArrowRight className="ml-1 h-5 w-5" />
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-lg px-10 h-14 shadow-lg shadow-accent/25 transition-all hover:shadow-xl hover:shadow-accent/30 rounded-xl">
+                Get Started Free <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="border-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-base px-8 h-13">
-              <Play className="mr-1 h-4 w-4" /> See How It Works
+            <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-lg px-10 h-14 rounded-xl">
+              <Play className="mr-2 h-5 w-5" /> See How It Works
             </Button>
           </div>
         </FadeIn>
