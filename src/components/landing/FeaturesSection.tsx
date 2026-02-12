@@ -1,5 +1,4 @@
 import { BookOpen, Mic, Package, CreditCard, Scale, ShieldAlert, Undo2, HelpCircle, Users, Lock } from "lucide-react";
-import FadeIn from "./FadeIn";
 import { motion } from "framer-motion";
 
 const features = [
@@ -68,45 +67,84 @@ const features = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
+
 const FeaturesSection = () => (
   <section id="features" className="py-24 md:py-32 bg-background relative">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent)/0.06),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
-      <FadeIn>
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-accent font-semibold text-sm uppercase tracking-widest">Features</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
-            Ramp for chaotic retail — every feature earns its place
-          </h2>
-          <p className="text-muted-foreground mt-5 text-lg">
-            Double-entry is mandatory. The ledger is immutable. Nothing gets lost.
-          </p>
-        </div>
-      </FadeIn>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center max-w-2xl mx-auto mb-16"
+      >
+        <motion.span
+          className="text-accent font-semibold text-sm uppercase tracking-widest inline-block"
+          initial={{ opacity: 0, letterSpacing: "0.05em" }}
+          whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          Features
+        </motion.span>
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+          Ramp for chaotic retail — every feature earns its place
+        </h2>
+        <p className="text-muted-foreground mt-5 text-lg">
+          Double-entry is mandatory. The ledger is immutable. Nothing gets lost.
+        </p>
+      </motion.div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {features.map((f, i) => (
-          <FadeIn key={f.title} delay={i * 0.06}>
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="group glass-card rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full flex flex-col"
-            >
-              <div className="flex items-start justify-between mb-5">
-                <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center transition-colors">
-                  <f.icon className="h-5 w-5 text-accent" />
-                </div>
-                <span className="text-xs font-medium text-muted-foreground px-2.5 py-1 rounded-full bg-accent/5 border border-accent/10">{f.tag}</span>
-              </div>
-              <h3 className="font-display text-lg font-semibold text-foreground mb-2">{f.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
-              <div className="mt-4 pt-3 border-t border-border/50">
-                <span className="text-xs font-medium text-accent">{f.detail}</span>
-              </div>
-            </motion.div>
-          </FadeIn>
+      <motion.div
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
+        {features.map((f) => (
+          <motion.div
+            key={f.title}
+            variants={cardVariants}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="group glass-card rounded-2xl p-7 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 h-full flex flex-col"
+          >
+            <div className="flex items-start justify-between mb-5">
+              <motion.div
+                className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-accent/15 flex items-center justify-center transition-colors"
+                whileInView={{ rotate: [0, -8, 8, 0] }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <f.icon className="h-5 w-5 text-accent" />
+              </motion.div>
+              <span className="text-xs font-medium text-muted-foreground px-2.5 py-1 rounded-full bg-accent/5 border border-accent/10">{f.tag}</span>
+            </div>
+            <h3 className="font-display text-lg font-semibold text-foreground mb-2">{f.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
+            <div className="mt-4 pt-3 border-t border-border/50">
+              <span className="text-xs font-medium text-accent">{f.detail}</span>
+            </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );

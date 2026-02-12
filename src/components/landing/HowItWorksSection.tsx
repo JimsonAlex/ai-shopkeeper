@@ -1,5 +1,4 @@
 import { MessageSquare, Zap, Eye, Mic, Camera, Type, ArrowRight, CheckCircle2 } from "lucide-react";
-import FadeIn from "./FadeIn";
 import { motion } from "framer-motion";
 
 const steps = [
@@ -124,74 +123,123 @@ const HowItWorksSection = () => (
   <section id="how-it-works" className="py-24 md:py-32 bg-background relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--accent)/0.04),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
-      <FadeIn>
-        <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-accent font-semibold text-sm uppercase tracking-widest">How It Works</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
-            Three steps to financial clarity
-          </h2>
-          <p className="text-muted-foreground mt-5 text-lg">
-            You talk to your shop. The AI talks to your ledger.
-          </p>
-        </div>
-      </FadeIn>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center max-w-2xl mx-auto mb-20"
+      >
+        <motion.span
+          className="text-accent font-semibold text-sm uppercase tracking-widest inline-block"
+          initial={{ opacity: 0, letterSpacing: "0.05em" }}
+          whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          How It Works
+        </motion.span>
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+          Three steps to financial clarity
+        </h2>
+        <p className="text-muted-foreground mt-5 text-lg">
+          You talk to your shop. The AI talks to your ledger.
+        </p>
+      </motion.div>
 
       {/* Steps — alternating layout */}
       <div className="max-w-5xl mx-auto space-y-16 md:space-y-24 mb-24">
         {steps.map((s, i) => (
-          <FadeIn key={s.num} delay={i * 0.12}>
-            <div className={`flex flex-col ${i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"} gap-8 md:gap-14 items-center`}>
-              {/* Text side */}
-              <div className="flex-1 space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="font-display text-4xl md:text-5xl font-black text-accent/15">{s.num}</span>
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                    <s.icon className="h-5 w-5 text-accent" />
-                  </div>
-                </div>
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">{s.title}</h3>
-                <p className="text-muted-foreground leading-relaxed max-w-md">{s.desc}</p>
+          <div
+            key={s.num}
+            className={`flex flex-col ${i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"} gap-8 md:gap-14 items-center`}
+          >
+            {/* Text side */}
+            <motion.div
+              className="flex-1 space-y-4"
+              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <div className="flex items-center gap-3">
+                <motion.span
+                  className="font-display text-4xl md:text-5xl font-black text-accent/15"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.1, type: "spring" }}
+                >
+                  {s.num}
+                </motion.span>
+                <motion.div
+                  className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"
+                  initial={{ rotate: -20, opacity: 0 }}
+                  whileInView={{ rotate: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2, type: "spring" }}
+                >
+                  <s.icon className="h-5 w-5 text-accent" />
+                </motion.div>
               </div>
-              {/* Visual side */}
-              <motion.div
-                className="flex-1 w-full"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                {s.visual}
-              </motion.div>
-            </div>
-          </FadeIn>
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">{s.title}</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-md">{s.desc}</p>
+            </motion.div>
+            {/* Visual side */}
+            <motion.div
+              className="flex-1 w-full"
+              initial={{ opacity: 0, x: i % 2 === 0 ? 50 : -50, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
+            >
+              {s.visual}
+            </motion.div>
+          </div>
         ))}
       </div>
 
       {/* Input methods — bolder cards */}
-      <FadeIn delay={0.3}>
-        <div className="max-w-4xl mx-auto">
-          <h3 className="font-display text-xl md:text-2xl font-bold text-foreground text-center mb-10">
-            Three ways to talk to your books
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {inputMethods.map((m) => (
-              <motion.div
-                key={m.label}
-                whileHover={{ y: -6, scale: 1.02 }}
-                transition={{ duration: 0.25 }}
-                className={`relative rounded-2xl border border-border/50 p-7 bg-gradient-to-b ${m.color} overflow-hidden group`}
-              >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-                <div className="relative">
-                  <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
-                    <m.icon className="h-6 w-6 text-accent" />
-                  </div>
-                  <h4 className="font-display font-bold text-foreground text-lg mb-3">{m.label}</h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{m.example}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      <div className="max-w-4xl mx-auto">
+        <motion.h3
+          className="font-display text-xl md:text-2xl font-bold text-foreground text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Three ways to talk to your books
+        </motion.h3>
+        <div className="grid md:grid-cols-3 gap-6">
+          {inputMethods.map((m, i) => (
+            <motion.div
+              key={m.label}
+              initial={{ opacity: 0, y: 40, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" as const }}
+              whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.25 } }}
+              className={`relative rounded-2xl border border-border/50 p-7 bg-gradient-to-b ${m.color} overflow-hidden group`}
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+              <div className="relative">
+                <motion.div
+                  className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors"
+                  initial={{ rotate: -15, opacity: 0 }}
+                  whileInView={{ rotate: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 + i * 0.1, type: "spring" }}
+                >
+                  <m.icon className="h-6 w-6 text-accent" />
+                </motion.div>
+                <h4 className="font-display font-bold text-foreground text-lg mb-3">{m.label}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{m.example}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </FadeIn>
+      </div>
     </div>
   </section>
 );

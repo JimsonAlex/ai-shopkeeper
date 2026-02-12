@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import FadeIn from "./FadeIn";
+import { motion } from "framer-motion";
 
 const faqs = [
   {
@@ -37,21 +37,44 @@ const FAQSection = () => (
   <section id="faq" className="py-24 md:py-32 bg-muted/40 relative">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--accent)/0.04),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
-      <FadeIn>
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-accent font-semibold text-sm uppercase tracking-widest">FAQ</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
-            Got questions? We've got answers
-          </h2>
-        </div>
-      </FadeIn>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center max-w-2xl mx-auto mb-14"
+      >
+        <motion.span
+          className="text-accent font-semibold text-sm uppercase tracking-widest inline-block"
+          initial={{ opacity: 0, letterSpacing: "0.05em" }}
+          whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          FAQ
+        </motion.span>
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+          Got questions? We've got answers
+        </h2>
+      </motion.div>
 
-      <FadeIn delay={0.1}>
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map((faq, i) => (
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        className="max-w-3xl mx-auto"
+      >
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs.map((faq, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.06, ease: "easeOut" }}
+            >
               <AccordionItem
-                key={i}
                 value={`item-${i}`}
                 className="glass-card rounded-xl px-6 data-[state=open]:border-accent/30 transition-colors"
               >
@@ -62,10 +85,10 @@ const FAQSection = () => (
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </FadeIn>
+            </motion.div>
+          ))}
+        </Accordion>
+      </motion.div>
     </div>
   </section>
 );
