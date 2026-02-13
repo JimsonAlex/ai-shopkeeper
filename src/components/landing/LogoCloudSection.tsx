@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const partners = [
+const partnersRow1 = [
   "Safaricom",
   "M-Pesa",
   "Equity Bank",
@@ -9,8 +9,53 @@ const partners = [
   "Twiga Foods",
 ];
 
-// Double the list for seamless loop
-const marqueeItems = [...partners, ...partners];
+const partnersRow2 = [
+  "Flutterwave",
+  "Paystack",
+  "Cellulant",
+  "Copia",
+  "MarketForce",
+  "Wasoko",
+];
+
+const marqueeRow1 = [...partnersRow1, ...partnersRow1];
+const marqueeRow2 = [...partnersRow2, ...partnersRow2];
+
+const MarqueeRow = ({
+  items,
+  reverse = false,
+  duration = 20,
+}: {
+  items: string[];
+  reverse?: boolean;
+  duration?: number;
+}) => (
+  <div className="relative">
+    <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+    <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+    <motion.div
+      className="flex items-center gap-16 md:gap-24 w-max"
+      animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+      transition={{
+        x: {
+          duration,
+          repeat: Infinity,
+          ease: "linear",
+        },
+      }}
+    >
+      {items.map((name, i) => (
+        <span
+          key={`${name}-${i}`}
+          className="font-display text-xl md:text-2xl font-bold text-foreground/[0.1] hover:text-foreground/[0.25] transition-colors duration-300 select-none tracking-tight whitespace-nowrap"
+        >
+          {name}
+        </span>
+      ))}
+    </motion.div>
+  </div>
+);
 
 const LogoCloudSection = () => (
   <section className="py-14 md:py-16 bg-background relative overflow-hidden">
@@ -26,32 +71,9 @@ const LogoCloudSection = () => (
       </motion.p>
     </div>
 
-    {/* Marquee container */}
-    <div className="relative">
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-      <motion.div
-        className="flex items-center gap-16 md:gap-24 w-max"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          x: {
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          },
-        }}
-      >
-        {marqueeItems.map((name, i) => (
-          <span
-            key={`${name}-${i}`}
-            className="font-display text-xl md:text-2xl font-bold text-foreground/[0.1] hover:text-foreground/[0.25] transition-colors duration-300 select-none tracking-tight whitespace-nowrap"
-          >
-            {name}
-          </span>
-        ))}
-      </motion.div>
+    <div className="space-y-6">
+      <MarqueeRow items={marqueeRow1} duration={22} />
+      <MarqueeRow items={marqueeRow2} reverse duration={26} />
     </div>
   </section>
 );
