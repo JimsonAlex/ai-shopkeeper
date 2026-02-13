@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { Eye, EyeOff, UserPlus, ArrowLeft } from "lucide-react";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
 
 const registerSchema = z
   .object({
@@ -145,6 +146,26 @@ const Register = () => {
               {isLoading ? "Creating account…" : <><UserPlus className="h-4 w-4 mr-2" /> Create Account</>}
             </Button>
           </form>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
+          <GoogleSignInButton
+            text="signup_with"
+            onSuccess={(res) => {
+              const token = res.key || res.access;
+              if (token) localStorage.setItem("auth_token", token);
+              toast({ title: "Account created!", description: "Signed up with Google." });
+              navigate("/");
+            }}
+            onError={(msg) => toast({ title: "Google sign-up failed", description: msg, variant: "destructive" })}
+          />
 
           <p className="text-sm text-muted-foreground text-center">
             Already have an account?{" "}

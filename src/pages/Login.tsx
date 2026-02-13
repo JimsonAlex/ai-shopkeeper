@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { Eye, EyeOff, LogIn, ArrowLeft } from "lucide-react";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
 
 const loginSchema = z.object({
   email: z.string().trim().email("Enter a valid email").max(255),
@@ -126,6 +127,26 @@ const Login = () => {
               {isLoading ? "Signing in…" : <><LogIn className="h-4 w-4 mr-2" /> Sign In</>}
             </Button>
           </form>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
+          <GoogleSignInButton
+            text="signin_with"
+            onSuccess={(res) => {
+              const token = res.key || res.access;
+              if (token) localStorage.setItem("auth_token", token);
+              toast({ title: "Welcome back!", description: "Signed in with Google." });
+              navigate("/");
+            }}
+            onError={(msg) => toast({ title: "Google sign-in failed", description: msg, variant: "destructive" })}
+          />
 
           <p className="text-sm text-muted-foreground text-center">
             Don't have an account?{" "}

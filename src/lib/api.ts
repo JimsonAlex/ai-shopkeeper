@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   user: `${API_BASE_URL}/api/auth/user/`,
   passwordReset: `${API_BASE_URL}/api/auth/password/reset/`,
   passwordResetConfirm: `${API_BASE_URL}/api/auth/password/reset/confirm/`,
+  googleLogin: `${API_BASE_URL}/api/auth/google/`,
 } as const;
 
 // --- Types ---
@@ -72,4 +73,9 @@ export function loginUser(payload: LoginPayload) {
 
 export function requestPasswordReset(email: string) {
   return authFetch<{ detail: string }>(API_ENDPOINTS.passwordReset, { email });
+}
+
+/** Send Google ID token to Django for verification & login/registration */
+export function googleLogin(idToken: string) {
+  return authFetch<AuthResponse>(API_ENDPOINTS.googleLogin, { id_token: idToken });
 }
