@@ -87,7 +87,7 @@ const Navbar = () => {
 };
 
 const Hero = () => (
-  <section className="relative min-h-[100dvh] flex flex-col items-center justify-center bg-primary overflow-hidden pt-20">
+  <section className="relative min-h-[100dvh] flex flex-col items-center justify-center bg-primary overflow-hidden pt-16 md:pt-20">
     {/* Refined aurora — softer, wider, more professional */}
     <div className="absolute top-0 left-0 right-0 h-[800px] overflow-hidden pointer-events-none">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[700px]"
@@ -120,7 +120,7 @@ const Hero = () => (
       />
     </div>
 
-    <div className="container mx-auto px-4 md:px-8 py-24 md:py-36 relative z-10 text-center">
+    <div className="container mx-auto px-4 md:px-8 py-16 md:py-36 relative z-10 text-center">
       {/* Social proof chip */}
       <FadeIn>
         <motion.div
@@ -200,8 +200,8 @@ const Hero = () => (
 
       {/* Dashboard mockup with premium frame */}
       <FadeIn delay={0.5}>
-        <motion.div
-          className="mt-20 max-w-5xl mx-auto relative"
+          <motion.div
+            className="mt-12 md:mt-20 max-w-5xl mx-auto relative"
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}

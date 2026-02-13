@@ -17,10 +17,10 @@ const inputModes = [
 ];
 
 const SolutionSection = () => (
-  <section id="solution" className="py-20 md:py-28 bg-background relative overflow-hidden">
+  <section id="solution" className="py-16 md:py-28 bg-background relative overflow-hidden">
     <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-accent/[0.04] blur-[150px] pointer-events-none" />
     <div className="container mx-auto px-4 md:px-8 relative">
-      <div className="grid lg:grid-cols-2 gap-20 items-center max-w-6xl mx-auto">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
         {/* Left: metrics display */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
