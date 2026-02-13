@@ -1,4 +1,5 @@
 import HeroSection from "@/components/landing/HeroSection";
+import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ProblemSection from "@/components/landing/ProblemSection";
 import SolutionSection from "@/components/landing/SolutionSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
@@ -20,6 +21,7 @@ const Divider = () => (
 const Index = () => (
   <main>
     <HeroSection />
+    <LogoCloudSection />
     <Divider />
     <ProblemSection />
     <Divider />
