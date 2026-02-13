@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const HowItWorksSection = () => (
-  <section id="how-it-works" className="py-24 md:py-32 bg-background relative overflow-hidden">
+  <section id="how-it-works" className="py-28 md:py-40 bg-background relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
@@ -33,13 +33,18 @@ const HowItWorksSection = () => (
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="text-center max-w-2xl mx-auto mb-20"
       >
-        <span className="text-accent font-semibold text-sm uppercase tracking-widest">How It Works</span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+        <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-3.5 py-1 text-accent text-xs font-semibold uppercase tracking-widest mb-6">
+          How It Works
+        </span>
+        <h2 className="font-display text-3xl sm:text-4xl md:text-[3.25rem] font-bold text-foreground leading-[1.1] tracking-tight">
           Three steps to financial clarity
         </h2>
       </motion.div>
 
-      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto relative">
+        {/* Connector line on desktop */}
+        <div className="hidden md:block absolute top-[4.5rem] left-[16%] right-[16%] h-px bg-border" />
+        
         {steps.map((s, i) => (
           <motion.div
             key={s.num}
@@ -48,10 +53,10 @@ const HowItWorksSection = () => (
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl p-8 text-center relative border border-border bg-card hover:border-accent/20 hover:shadow-lg transition-all duration-300"
+            className="rounded-2xl p-8 text-center relative border border-border/80 bg-card hover:border-accent/20 hover:shadow-xl hover:shadow-accent/[0.04] transition-all duration-300"
           >
             <motion.span
-              className="font-display text-6xl font-black text-accent/8 absolute top-4 right-6"
+              className="font-display text-7xl font-black text-accent/[0.06] absolute top-3 right-5 select-none"
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -59,10 +64,10 @@ const HowItWorksSection = () => (
             >
               {s.num}
             </motion.span>
-            <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6">
-              <s.icon className="h-6 w-6 text-accent" />
+            <div className="w-14 h-14 rounded-2xl bg-accent/[0.08] flex items-center justify-center mx-auto mb-6 relative z-10">
+              <s.icon className="h-6 w-6 text-accent" strokeWidth={1.8} />
             </div>
-            <h3 className="font-display text-xl font-bold text-foreground mb-3">{s.title}</h3>
+            <h3 className="font-display text-lg font-bold text-foreground mb-3 tracking-tight">{s.title}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
           </motion.div>
         ))}

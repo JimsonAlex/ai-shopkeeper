@@ -59,21 +59,23 @@ const PricingSection = () => {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-background relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_60%)]" />
+    <section id="pricing" className="py-28 md:py-40 bg-background relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_60%)]" />
       <div className="container mx-auto px-4 md:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-20"
         >
-          <span className="text-accent font-semibold text-sm uppercase tracking-widest">Pricing</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
+          <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-3.5 py-1 text-accent text-xs font-semibold uppercase tracking-widest mb-6">
+            Pricing
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-[3.25rem] font-bold text-foreground leading-[1.1] tracking-tight">
             Simple pricing, no surprises
           </h2>
-          <p className="text-muted-foreground mt-4 text-sm">
+          <p className="text-muted-foreground mt-5 text-[15px]">
             Start free. Upgrade when you're ready.
           </p>
 
@@ -99,7 +101,7 @@ const PricingSection = () => {
               Yearly
             </span>
             {yearly && (
-              <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-0.5 rounded-full">
+              <span className="text-[11px] font-semibold text-accent bg-accent/[0.08] px-2.5 py-0.5 rounded-full">
                 Save 20%
               </span>
             )}
@@ -107,7 +109,7 @@ const PricingSection = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
+          className="grid grid-cols-1 gap-4 md:grid-cols-3 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -125,48 +127,48 @@ const PricingSection = () => {
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 className={`rounded-2xl p-8 flex flex-col border ${
                   plan.featured
-                    ? "border-accent/30 bg-card shadow-2xl shadow-accent/5 relative"
-                    : "border-border bg-card"
+                    ? "border-accent/25 bg-card shadow-2xl shadow-accent/[0.06] relative ring-1 ring-accent/10"
+                    : "border-border/80 bg-card"
                 }`}
               >
                 {plan.featured && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wide">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-[11px] font-bold uppercase tracking-wider">
                     Most Popular
                   </span>
                 )}
-                <div className="mb-6">
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">{plan.name}</h3>
+                <div className="mb-7">
+                  <h3 className="font-display text-base font-semibold text-foreground mb-3">{plan.name}</h3>
                   <div className="flex items-baseline gap-1">
                     <motion.span
                       key={price}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="font-display text-4xl font-bold text-foreground"
+                      className="font-display text-4xl font-bold text-foreground tracking-tight"
                     >
                       {price}
                     </motion.span>
-                    {plan.period && <span className="text-muted-foreground">{plan.period}</span>}
+                    {plan.period && <span className="text-muted-foreground text-sm">{plan.period}</span>}
                   </div>
                   {yearly && price !== "Free" && (
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-1.5">
                       Billed annually
                     </p>
                   )}
-                  <p className="text-sm mt-2 text-muted-foreground">{plan.desc}</p>
+                  <p className="text-sm mt-3 text-muted-foreground">{plan.desc}</p>
                 </div>
 
-                <ul className="space-y-3 mb-8 flex-1">
+                <ul className="space-y-3.5 mb-8 flex-1">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm">
-                      <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" />
+                    <li key={f} className="flex items-start gap-3 text-sm">
+                      <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" strokeWidth={2.5} />
                       <span className="text-muted-foreground">{f}</span>
                     </li>
                   ))}
                 </ul>
 
                 <Button
-                  className={`w-full font-semibold rounded-xl h-11 ${
+                  className={`w-full font-semibold rounded-xl h-11 text-sm ${
                     plan.featured
                       ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
