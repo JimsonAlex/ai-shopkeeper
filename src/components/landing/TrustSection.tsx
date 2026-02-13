@@ -23,7 +23,7 @@ const testimonials = [
 ];
 
 const TrustSection = () => (
-  <section id="testimonials" className="py-24 md:py-32 bg-primary relative overflow-hidden">
+  <section id="testimonials" className="py-24 md:py-32 bg-background relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
@@ -34,7 +34,7 @@ const TrustSection = () => (
         className="text-center max-w-2xl mx-auto mb-14"
       >
         <span className="text-accent font-semibold text-sm uppercase tracking-widest">Testimonials</span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
           Trusted by shop owners who demand accuracy
         </h2>
       </motion.div>
@@ -48,17 +48,17 @@ const TrustSection = () => (
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="rounded-2xl p-7 border border-primary-foreground/8 bg-primary-foreground/[0.02] hover:border-accent/15 transition-all duration-300"
+            className="rounded-2xl p-7 border border-border bg-card hover:border-accent/15 hover:shadow-lg transition-all duration-300"
           >
             <div className="flex gap-0.5 mb-4">
               {Array.from({ length: t.stars }).map((_, j) => (
                 <Star key={j} className="h-4 w-4 fill-accent text-accent" />
               ))}
             </div>
-            <p className="text-primary-foreground/60 text-sm leading-relaxed mb-6">"{t.quote}"</p>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6">"{t.quote}"</p>
             <div>
-              <p className="text-primary-foreground font-semibold text-sm">{t.author}</p>
-              <p className="text-primary-foreground/30 text-xs">{t.role}</p>
+              <p className="text-foreground font-semibold text-sm">{t.author}</p>
+              <p className="text-muted-foreground text-xs">{t.role}</p>
             </div>
           </motion.div>
         ))}
