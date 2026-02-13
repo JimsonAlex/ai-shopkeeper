@@ -7,7 +7,6 @@ import { requestPasswordReset } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 import { ArrowLeft, Mail } from "lucide-react";
 
@@ -31,8 +30,7 @@ const ForgotPassword = () => {
       await requestPasswordReset(data.email);
       setSubmitted(true);
       toast({ title: "Check your email", description: "If that email exists, we've sent reset instructions." });
-    } catch (err: any) {
-      // Don't reveal whether email exists — always show success
+    } catch {
       setSubmitted(true);
       toast({ title: "Check your email", description: "If that email exists, we've sent reset instructions." });
     } finally {
@@ -41,53 +39,88 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.06),transparent_60%)]" />
-      <Card className="w-full max-w-md relative z-10 border-border/50 shadow-xl">
-        <CardHeader className="text-center space-y-1">
-          <Link to="/" className="font-display text-2xl font-bold text-accent mb-2 inline-block">
+    <div className="min-h-screen flex">
+      {/* Left branded panel */}
+      <div className="hidden lg:flex lg:w-1/2 bg-primary relative overflow-hidden flex-col justify-between p-12">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--accent)/0.12),transparent_60%)]" />
+        <div className="relative z-10">
+          <Link to="/" className="font-display text-2xl font-bold text-primary-foreground tracking-tight">
             Nexus
           </Link>
-          <CardTitle className="text-xl font-semibold">Reset your password</CardTitle>
-          <CardDescription>
-            {submitted
-              ? "Check your inbox for a reset link."
-              : "Enter your email and we'll send instructions."}
-          </CardDescription>
-        </CardHeader>
+        </div>
+        <div className="relative z-10 max-w-md">
+          <h2 className="font-display text-4xl font-bold text-primary-foreground leading-tight mb-4">
+            No worries, we've got <span className="text-accent">your back</span>
+          </h2>
+          <p className="text-primary-foreground/50 text-lg leading-relaxed">
+            Reset your password in seconds and get right back to managing your business.
+          </p>
+        </div>
+        <div className="relative z-10">
+          <p className="text-primary-foreground/30 text-sm">© 2026 Nexus. All rights reserved.</p>
+        </div>
+      </div>
 
-        {!submitted ? (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <CardContent className="space-y-4">
+      {/* Right form panel */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-background px-6 py-12">
+        <div className="w-full max-w-sm space-y-8">
+          <div className="lg:hidden">
+            <Link to="/" className="font-display text-2xl font-bold text-accent tracking-tight">
+              Nexus
+            </Link>
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="font-display text-2xl font-bold text-foreground">Reset your password</h1>
+            <p className="text-muted-foreground text-sm">
+              {submitted
+                ? "Check your inbox for a reset link."
+                : "Enter your email and we'll send instructions."}
+            </p>
+          </div>
+
+          {!submitted ? (
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  className="h-11"
+                  {...register("email")}
+                />
                 {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
               </div>
-            </CardContent>
 
-            <CardFooter className="flex-col gap-4">
-              <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full h-11 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-lg shadow-md shadow-accent/20"
+                disabled={isLoading}
+              >
                 {isLoading ? "Sending…" : <><Mail className="h-4 w-4 mr-2" /> Send Reset Link</>}
               </Button>
-              <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
-                <ArrowLeft className="h-3 w-3" /> Back to login
+            </form>
+          ) : (
+            <div className="flex flex-col items-center gap-4 py-4">
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
+                <Mail className="h-8 w-8 text-accent" />
+              </div>
+              <Link to="/login">
+                <Button variant="outline" className="gap-2">
+                  <ArrowLeft className="h-4 w-4" /> Back to login
+                </Button>
               </Link>
-            </CardFooter>
-          </form>
-        ) : (
-          <CardFooter className="flex-col gap-4 pt-2">
-            <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-2">
-              <Mail className="h-8 w-8 text-accent" />
             </div>
-            <Link to="/login">
-              <Button variant="outline" className="gap-2">
-                <ArrowLeft className="h-4 w-4" /> Back to login
-              </Button>
+          )}
+
+          {!submitted && (
+            <Link to="/login" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to login
             </Link>
-          </CardFooter>
-        )}
-      </Card>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

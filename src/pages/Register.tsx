@@ -7,9 +7,8 @@ import { registerUser } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import { Eye, EyeOff, UserPlus } from "lucide-react";
+import { Eye, EyeOff, UserPlus, ArrowLeft } from "lucide-react";
 
 const registerSchema = z
   .object({
@@ -36,7 +35,6 @@ const Register = () => {
   const onSubmit = async (data: RegisterForm) => {
     setIsLoading(true);
     try {
-      // dj-rest-auth expects username — derive from email
       const username = data.email.split("@")[0];
       await registerUser({
         username,
@@ -54,22 +52,52 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.06),transparent_60%)]" />
-      <Card className="w-full max-w-md relative z-10 border-border/50 shadow-xl">
-        <CardHeader className="text-center space-y-1">
-          <Link to="/" className="font-display text-2xl font-bold text-accent mb-2 inline-block">
+    <div className="min-h-screen flex">
+      {/* Left branded panel */}
+      <div className="hidden lg:flex lg:w-1/2 bg-primary relative overflow-hidden flex-col justify-between p-12">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--accent)/0.12),transparent_60%)]" />
+        <div className="relative z-10">
+          <Link to="/" className="font-display text-2xl font-bold text-primary-foreground tracking-tight">
             Nexus
           </Link>
-          <CardTitle className="text-xl font-semibold">Create an account</CardTitle>
-          <CardDescription>Start tracking your shop finances</CardDescription>
-        </CardHeader>
+        </div>
+        <div className="relative z-10 max-w-md">
+          <h2 className="font-display text-4xl font-bold text-primary-foreground leading-tight mb-4">
+            Start managing your finances <span className="text-accent">smarter</span>
+          </h2>
+          <p className="text-primary-foreground/50 text-lg leading-relaxed">
+            Join thousands of retailers who save hours each week with automated bookkeeping and real-time insights.
+          </p>
+        </div>
+        <div className="relative z-10">
+          <p className="text-primary-foreground/30 text-sm">© 2026 Nexus. All rights reserved.</p>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-4">
+      {/* Right form panel */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-background px-6 py-12">
+        <div className="w-full max-w-sm space-y-8">
+          <div className="lg:hidden">
+            <Link to="/" className="font-display text-2xl font-bold text-accent tracking-tight">
+              Nexus
+            </Link>
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="font-display text-2xl font-bold text-foreground">Create an account</h1>
+            <p className="text-muted-foreground text-sm">Start tracking your shop finances</p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                className="h-11"
+                {...register("email")}
+              />
               {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
             </div>
 
@@ -80,11 +108,12 @@ const Register = () => {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Min. 8 characters"
+                  className="h-11 pr-10"
                   {...register("password")}
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                   tabIndex={-1}
                 >
@@ -100,25 +129,33 @@ const Register = () => {
                 id="confirmPassword"
                 type={showPassword ? "text" : "password"}
                 placeholder="Repeat your password"
+                className="h-11"
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword && (
                 <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
               )}
             </div>
-          </CardContent>
 
-          <CardFooter className="flex-col gap-4">
-            <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full h-11 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-lg shadow-md shadow-accent/20"
+              disabled={isLoading}
+            >
               {isLoading ? "Creating account…" : <><UserPlus className="h-4 w-4 mr-2" /> Create Account</>}
             </Button>
-            <p className="text-sm text-muted-foreground text-center">
-              Already have an account?{" "}
-              <Link to="/login" className="text-accent hover:underline font-medium">Sign in</Link>
-            </p>
-          </CardFooter>
-        </form>
-      </Card>
+          </form>
+
+          <p className="text-sm text-muted-foreground text-center">
+            Already have an account?{" "}
+            <Link to="/login" className="text-accent hover:underline font-medium">Sign in</Link>
+          </p>
+
+          <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to home
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
