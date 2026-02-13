@@ -63,56 +63,60 @@ const PricingCard = ({ plan, yearly }: { plan: typeof plans[0]; yearly: boolean 
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
       }}
-      whileHover={{ y: -6, transition: { duration: 0.2 } }}
-      className={`rounded-2xl p-6 md:p-8 flex flex-col border ${
+      whileHover={{ y: -8, transition: { duration: 0.25 } }}
+      className={`rounded-2xl p-7 md:p-9 flex flex-col border transition-all duration-300 ${
         plan.featured
-          ? "border-accent/25 bg-card shadow-2xl shadow-accent/[0.06] relative ring-1 ring-accent/10"
-          : "border-border/80 bg-card"
+          ? "border-accent/30 bg-gradient-to-b from-card to-accent/[0.03] shadow-2xl shadow-accent/[0.08] relative ring-1 ring-accent/15"
+          : "border-border/60 bg-gradient-to-b from-card to-card/80 hover:border-accent/20 hover:shadow-xl hover:shadow-accent/[0.04]"
       }`}
     >
       {plan.featured && (
-        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-[11px] font-bold uppercase tracking-wider">
+        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold uppercase tracking-[0.12em] shadow-lg shadow-accent/30">
           Most Popular
         </span>
       )}
-      <div className="mb-7">
-        <h3 className="font-display text-base font-semibold text-foreground mb-3">{plan.name}</h3>
-        <div className="flex items-baseline gap-1">
+      <div className="mb-8">
+        <h3 className="font-display text-base font-bold text-foreground mb-4 tracking-tight">{plan.name}</h3>
+        <div className="flex items-baseline gap-1.5">
           <motion.span
             key={price}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}
-            className="font-display text-4xl font-bold text-foreground tracking-tight"
+            className="font-display text-5xl font-bold text-foreground tracking-tight"
           >
             {price}
           </motion.span>
           {plan.period && <span className="text-muted-foreground text-sm">{plan.period}</span>}
         </div>
         {yearly && price !== "Free" && (
-          <p className="text-xs text-muted-foreground mt-1.5">Billed annually</p>
+          <p className="text-xs text-accent font-semibold mt-2">Billed annually — save 20%</p>
         )}
-        <p className="text-sm mt-3 text-muted-foreground">{plan.desc}</p>
+        <p className="text-sm mt-4 text-muted-foreground leading-relaxed">{plan.desc}</p>
       </div>
 
-      <ul className="space-y-3.5 mb-8 flex-1">
+      <ul className="space-y-4 mb-10 flex-1">
         {plan.features.map((f) => (
           <li key={f} className="flex items-start gap-3 text-sm">
-            <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" strokeWidth={2.5} />
+            <div className="w-5 h-5 rounded-full bg-accent/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Check className="h-3 w-3 text-accent" strokeWidth={3} />
+            </div>
             <span className="text-muted-foreground">{f}</span>
           </li>
         ))}
       </ul>
 
-      <Button
-        className={`w-full font-semibold rounded-xl h-11 text-sm ${
-          plan.featured
-            ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20"
-            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-        }`}
-      >
-        {plan.cta} {plan.featured && <ArrowRight className="ml-1 h-4 w-4" />}
-      </Button>
+      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+        <Button
+          className={`w-full font-bold rounded-xl h-12 text-sm tracking-wide ${
+            plan.featured
+              ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-xl shadow-accent/25"
+              : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+          }`}
+        >
+          {plan.cta} {plan.featured && <ArrowRight className="ml-1.5 h-4 w-4" />}
+        </Button>
+      </motion.div>
     </motion.div>
   );
 };
@@ -120,13 +124,12 @@ const PricingCard = ({ plan, yearly }: { plan: typeof plans[0]; yearly: boolean 
 const PricingSection = () => {
   const [yearly, setYearly] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(1); // default to featured
+  const [activeIndex, setActiveIndex] = useState(1);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
-    // Scroll to featured card (index 1) on mount
     const cardWidth = 280;
     const gap = 12;
     el.scrollLeft = (cardWidth + gap) * 1;
@@ -143,49 +146,54 @@ const PricingSection = () => {
   }, []);
 
   return (
-    <section id="pricing" className="py-16 md:py-28 bg-background relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_60%)]" />
+    <section id="pricing" className="py-20 md:py-32 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_60%)]" />
+      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full bg-accent/[0.03] blur-[120px] pointer-events-none" />
+
       <div className="container mx-auto px-4 md:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center max-w-2xl mx-auto mb-12 md:mb-20"
+          className="text-center max-w-2xl mx-auto mb-16 md:mb-24"
         >
-          <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-3.5 py-1 text-accent text-xs font-semibold uppercase tracking-widest mb-6">
+          <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-4 py-1.5 text-accent text-[11px] font-bold uppercase tracking-[0.15em] mb-8">
             Pricing
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[3.25rem] font-bold text-foreground leading-[1.1] tracking-tight">
-            Simple pricing, no surprises
+          <h2 className="font-display text-4xl sm:text-5xl md:text-[3.75rem] font-bold text-foreground leading-[1.08] tracking-tight">
+            Simple pricing,{" "}
+            <span className="bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
+              no surprises
+            </span>
           </h2>
-          <p className="text-muted-foreground mt-5 text-[15px]">
+          <p className="text-muted-foreground mt-6 text-base leading-relaxed">
             Start free. Upgrade when you're ready.
           </p>
 
           {/* Billing toggle */}
-          <div className="flex items-center justify-center gap-3 mt-8">
-            <span className={`text-sm font-medium transition-colors ${!yearly ? "text-foreground" : "text-muted-foreground"}`}>
+          <div className="flex items-center justify-center gap-4 mt-10">
+            <span className={`text-sm font-semibold transition-colors ${!yearly ? "text-foreground" : "text-muted-foreground"}`}>
               Monthly
             </span>
             <button
               onClick={() => setYearly(!yearly)}
-              className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                 yearly ? "bg-accent" : "bg-border"
               }`}
               aria-label="Toggle yearly billing"
             >
               <span
-                className={`inline-block h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
-                  yearly ? "translate-x-6" : "translate-x-1"
+                className={`inline-block h-6 w-6 rounded-full bg-white shadow-md transition-transform ${
+                  yearly ? "translate-x-7" : "translate-x-1"
                 }`}
               />
             </button>
-            <span className={`text-sm font-medium transition-colors ${yearly ? "text-foreground" : "text-muted-foreground"}`}>
+            <span className={`text-sm font-semibold transition-colors ${yearly ? "text-foreground" : "text-muted-foreground"}`}>
               Yearly
             </span>
             {yearly && (
-              <span className="text-[11px] font-semibold text-accent bg-accent/[0.08] px-2.5 py-0.5 rounded-full">
+              <span className="text-[11px] font-bold text-accent bg-accent/[0.08] px-3 py-1 rounded-full">
                 Save 20%
               </span>
             )}
@@ -203,7 +211,7 @@ const PricingSection = () => {
             viewport={{ once: true, margin: "-60px" }}
             variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
           >
-            {plans.map((plan, i) => (
+            {plans.map((plan) => (
               <div key={plan.name} className="snap-start shrink-0 w-[280px]">
                 <PricingCard plan={plan} yearly={yearly} />
               </div>
@@ -224,7 +232,7 @@ const PricingSection = () => {
 
         {/* Desktop: grid */}
         <motion.div
-          className="hidden sm:grid md:grid-cols-3 gap-4 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
+          className="hidden sm:grid md:grid-cols-3 gap-5 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
