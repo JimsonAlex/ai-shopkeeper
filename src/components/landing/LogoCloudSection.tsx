@@ -9,8 +9,11 @@ const partners = [
   "Twiga Foods",
 ];
 
+// Double the list for seamless loop
+const marqueeItems = [...partners, ...partners];
+
 const LogoCloudSection = () => (
-  <section className="py-14 md:py-16 bg-background relative">
+  <section className="py-14 md:py-16 bg-background relative overflow-hidden">
     <div className="container mx-auto px-4 md:px-8">
       <motion.p
         initial={{ opacity: 0 }}
@@ -21,24 +24,32 @@ const LogoCloudSection = () => (
       >
         Trusted by leading businesses across Africa
       </motion.p>
+    </div>
+
+    {/* Marquee container */}
+    <div className="relative">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
       <motion.div
-        className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 max-w-4xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+        className="flex items-center gap-16 md:gap-24 w-max"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          x: {
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          },
+        }}
       >
-        {partners.map((name) => (
-          <motion.span
-            key={name}
-            variants={{
-              hidden: { opacity: 0, y: 10 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-            }}
-            className="font-display text-lg md:text-xl font-bold text-foreground/[0.12] hover:text-foreground/[0.25] transition-colors duration-300 select-none tracking-tight"
+        {marqueeItems.map((name, i) => (
+          <span
+            key={`${name}-${i}`}
+            className="font-display text-xl md:text-2xl font-bold text-foreground/[0.1] hover:text-foreground/[0.25] transition-colors duration-300 select-none tracking-tight whitespace-nowrap"
           >
             {name}
-          </motion.span>
+          </span>
         ))}
       </motion.div>
     </div>
