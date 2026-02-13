@@ -13,7 +13,7 @@ import ScrollToTop from "@/components/landing/ScrollToTop";
 
 const Divider = () => (
   <div className="max-w-5xl mx-auto px-4">
-    <div className="h-px bg-border/60" />
+    <div className="glow-line opacity-40" />
   </div>
 );
 
