@@ -95,9 +95,9 @@ const Hero = () => (
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px]"
          style={{
            background: `
-             radial-gradient(ellipse 100% 80% at 50% 0%, hsl(160 65% 38% / 0.15) 0%, transparent 70%),
-             radial-gradient(ellipse 60% 60% at 40% 0%, hsl(160 65% 38% / 0.1) 0%, transparent 60%),
-             radial-gradient(ellipse 60% 60% at 60% 0%, hsl(160 65% 38% / 0.1) 0%, transparent 60%)
+             radial-gradient(ellipse 100% 80% at 50% 0%, hsl(166 81% 42% / 0.15) 0%, transparent 70%),
+             radial-gradient(ellipse 60% 60% at 40% 0%, hsl(166 81% 42% / 0.1) 0%, transparent 60%),
+             radial-gradient(ellipse 60% 60% at 60% 0%, hsl(166 81% 42% / 0.1) 0%, transparent 60%)
            `
         }}
       />
@@ -110,7 +110,7 @@ const Hero = () => (
             style={{
               left: `calc(50% + ${offset}px)`,
               width: i === 4 ? '3px' : '2px',
-              background: `linear-gradient(to bottom, hsl(160 65% 38% / ${i === 4 ? 0.4 : 0.15 + Math.random() * 0.15}), transparent 70%)`,
+              background: `linear-gradient(to bottom, hsl(166 81% 42% / ${i === 4 ? 0.4 : 0.15 + Math.random() * 0.15}), transparent 70%)`,
               filter: 'blur(1px)',
             }}
           />
@@ -119,7 +119,7 @@ const Hero = () => (
       {/* Wide ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[400px]"
         style={{
-          background: 'radial-gradient(ellipse 100% 100% at 50% 0%, hsl(160 65% 38% / 0.08) 0%, transparent 70%)'
+          background: 'radial-gradient(ellipse 100% 100% at 50% 0%, hsl(166 81% 42% / 0.08) 0%, transparent 70%)'
         }}
       />
     </div>
