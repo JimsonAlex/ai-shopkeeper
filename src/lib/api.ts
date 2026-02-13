@@ -2,28 +2,12 @@
 const API_BASE_URL = "http://localhost:8000";
 
 export const API_ENDPOINTS = {
-  register: `${API_BASE_URL}/api/auth/registration/`,
-  login: `${API_BASE_URL}/api/auth/login/`,
   logout: `${API_BASE_URL}/api/auth/logout/`,
   user: `${API_BASE_URL}/api/auth/user/`,
-  passwordReset: `${API_BASE_URL}/api/auth/password/reset/`,
-  passwordResetConfirm: `${API_BASE_URL}/api/auth/password/reset/confirm/`,
   googleLogin: `${API_BASE_URL}/api/auth/google/`,
 } as const;
 
 // --- Types ---
-
-interface RegisterPayload {
-  username: string;
-  email: string;
-  password1: string;
-  password2: string;
-}
-
-interface LoginPayload {
-  email: string;
-  password: string;
-}
 
 interface AuthResponse {
   key?: string;
@@ -62,18 +46,6 @@ async function authFetch<T>(url: string, body: object): Promise<T> {
 }
 
 // --- Public API ---
-
-export function registerUser(payload: RegisterPayload) {
-  return authFetch<AuthResponse>(API_ENDPOINTS.register, payload);
-}
-
-export function loginUser(payload: LoginPayload) {
-  return authFetch<AuthResponse>(API_ENDPOINTS.login, payload);
-}
-
-export function requestPasswordReset(email: string) {
-  return authFetch<{ detail: string }>(API_ENDPOINTS.passwordReset, { email });
-}
 
 /** Send Google ID token to Django for verification & login/registration */
 export function googleLogin(idToken: string) {
