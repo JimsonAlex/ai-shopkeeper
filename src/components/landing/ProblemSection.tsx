@@ -26,40 +26,36 @@ const benefits = [
 ];
 
 const ProblemSection = () => (
-  <section id="why-nexus" className="py-24 md:py-32 bg-primary relative">
+  <section id="why-nexus" className="py-24 md:py-32 bg-background relative">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.05),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
-      {/* Tagline */}
       <FadeIn>
         <div className="text-center max-w-3xl mx-auto mb-4">
-          <h3 className="font-display text-lg md:text-xl text-primary-foreground/60 leading-relaxed font-medium">
+          <h3 className="font-display text-lg md:text-xl text-foreground/60 leading-relaxed font-medium">
             Simplicity, performance, and security, empowering you to navigate retail finances with confidence and agility.
           </h3>
         </div>
       </FadeIn>
 
-      {/* Subtitle text */}
       <FadeIn delay={0.05}>
         <div className="text-center max-w-2xl mx-auto mb-4">
-          <p className="text-primary-foreground/30 text-sm leading-relaxed">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             Nexus lets shops record sales naturally, route accounting intelligently, and track profit instantly — through one simple interface.
           </p>
         </div>
       </FadeIn>
 
-      {/* Section heading */}
       <FadeIn delay={0.1}>
         <div className="text-center max-w-2xl mx-auto mb-4 mt-16">
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground leading-tight">
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
             Why Choose <span className="text-accent">Nexus</span>?
           </h2>
-          <p className="text-primary-foreground/30 mt-4 text-sm">
+          <p className="text-muted-foreground mt-4 text-sm">
             Benefits designed to provide a seamless, secure, and accessible experience for all users.
           </p>
         </div>
       </FadeIn>
 
-      {/* Cards */}
       <motion.div
         className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto mt-12"
         initial="hidden"
@@ -75,13 +71,13 @@ const ProblemSection = () => (
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
             }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl p-7 border border-primary-foreground/8 bg-primary-foreground/[0.02] hover:border-accent/20 hover:bg-primary-foreground/[0.04] transition-all duration-300 flex flex-col"
+            className="rounded-2xl p-7 border border-border bg-card hover:border-accent/20 hover:shadow-lg transition-all duration-300 flex flex-col"
           >
             <div className="w-11 h-11 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
               <b.icon className="h-5 w-5 text-accent" />
             </div>
-            <h3 className="font-display text-base font-semibold text-primary-foreground mb-2">{b.title}</h3>
-            <p className="text-primary-foreground/35 text-sm leading-relaxed">{b.desc}</p>
+            <h3 className="font-display text-base font-semibold text-foreground mb-2">{b.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">{b.desc}</p>
           </motion.div>
         ))}
       </motion.div>

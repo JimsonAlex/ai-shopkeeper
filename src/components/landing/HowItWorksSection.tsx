@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const HowItWorksSection = () => (
-  <section id="how-it-works" className="py-24 md:py-32 bg-primary relative overflow-hidden">
+  <section id="how-it-works" className="py-24 md:py-32 bg-background relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
@@ -34,7 +34,7 @@ const HowItWorksSection = () => (
         className="text-center max-w-2xl mx-auto mb-20"
       >
         <span className="text-accent font-semibold text-sm uppercase tracking-widest">How It Works</span>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 leading-tight">
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
           Three steps to financial clarity
         </h2>
       </motion.div>
@@ -48,7 +48,7 @@ const HowItWorksSection = () => (
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl p-8 text-center relative border border-primary-foreground/8 bg-primary-foreground/[0.02] hover:border-accent/20 transition-all duration-300"
+            className="rounded-2xl p-8 text-center relative border border-border bg-card hover:border-accent/20 hover:shadow-lg transition-all duration-300"
           >
             <motion.span
               className="font-display text-6xl font-black text-accent/8 absolute top-4 right-6"
@@ -62,8 +62,8 @@ const HowItWorksSection = () => (
             <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6">
               <s.icon className="h-6 w-6 text-accent" />
             </div>
-            <h3 className="font-display text-xl font-bold text-primary-foreground mb-3">{s.title}</h3>
-            <p className="text-primary-foreground/35 text-sm leading-relaxed">{s.desc}</p>
+            <h3 className="font-display text-xl font-bold text-foreground mb-3">{s.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
           </motion.div>
         ))}
       </div>
