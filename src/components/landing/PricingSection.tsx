@@ -72,7 +72,7 @@ const PricingSection = () => (
       </motion.div>
 
       <motion.div
-        className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start"
+        className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
