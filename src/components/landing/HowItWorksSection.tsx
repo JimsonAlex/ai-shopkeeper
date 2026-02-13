@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const HowItWorksSection = () => (
-  <section id="how-it-works" className="py-20 md:py-28 bg-background relative overflow-hidden">
+  <section id="how-it-works" className="py-16 md:py-28 bg-background relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div
@@ -31,7 +31,7 @@ const HowItWorksSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center max-w-2xl mx-auto mb-20"
+        className="text-center max-w-2xl mx-auto mb-12 md:mb-20"
       >
         <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-3.5 py-1 text-accent text-xs font-semibold uppercase tracking-widest mb-6">
           How It Works
@@ -53,7 +53,7 @@ const HowItWorksSection = () => (
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.15, ease: "easeOut" }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl p-8 text-center relative border border-border/80 bg-card hover:border-accent/20 hover:shadow-xl hover:shadow-accent/[0.04] transition-all duration-300"
+            className="rounded-2xl p-6 md:p-8 text-center relative border border-border/80 bg-card hover:border-accent/20 hover:shadow-xl hover:shadow-accent/[0.04] transition-all duration-300"
           >
             <motion.span
               className="font-display text-7xl font-black text-accent/[0.06] absolute top-3 right-5 select-none"

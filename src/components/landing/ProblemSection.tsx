@@ -26,7 +26,7 @@ const benefits = [
 ];
 
 const ProblemSection = () => (
-  <section id="why-nexus" className="py-20 md:py-28 bg-background relative">
+  <section id="why-nexus" className="py-16 md:py-28 bg-background relative">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.04),transparent_60%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <FadeIn>
@@ -41,7 +41,7 @@ const ProblemSection = () => (
       </FadeIn>
 
       <FadeIn delay={0.05}>
-        <div className="text-center max-w-xl mx-auto mb-20">
+        <div className="text-center max-w-xl mx-auto mb-12 md:mb-20">
           <p className="text-muted-foreground text-[15px] leading-relaxed">
             Simplicity, performance, and security — empowering you to navigate retail finances with confidence.
           </p>
@@ -63,7 +63,7 @@ const ProblemSection = () => (
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
             }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="group rounded-2xl p-8 border border-border/80 bg-card hover:border-accent/20 hover:shadow-xl hover:shadow-accent/[0.04] transition-all duration-300"
+            className="group rounded-2xl p-6 md:p-8 border border-border/80 bg-card hover:border-accent/20 hover:shadow-xl hover:shadow-accent/[0.04] transition-all duration-300"
           >
             <div className="w-12 h-12 rounded-xl bg-accent/[0.08] group-hover:bg-accent/[0.12] flex items-center justify-center mb-6 transition-colors duration-300">
               <b.icon className="h-5 w-5 text-accent" strokeWidth={1.8} />

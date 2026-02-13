@@ -1,8 +1,8 @@
 const Footer = () => (
   <footer className="bg-primary border-t border-primary-foreground/[0.04] py-16">
     <div className="container mx-auto px-4 md:px-8">
-      <div className="grid md:grid-cols-4 gap-10 mb-12">
-        <div className="md:col-span-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-12">
+        <div className="col-span-2 md:col-span-2">
           <span className="font-display text-xl font-bold text-primary-foreground tracking-tight">
             Nexus
           </span>
