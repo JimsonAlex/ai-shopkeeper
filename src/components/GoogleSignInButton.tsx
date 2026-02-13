@@ -1,5 +1,6 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { googleLogin } from "@/lib/api";
+import { Loader2 } from "lucide-react";
 
 // Replace with your actual Google Client ID from Google Cloud Console
 const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
@@ -26,14 +27,18 @@ declare global {
 
 const GoogleSignInButton = ({ onSuccess, onError, text = "signin_with" }: GoogleSignInButtonProps) => {
   const buttonRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCredentialResponse = useCallback(
     async (response: { credential: string }) => {
+      setIsLoading(true);
       try {
         const result = await googleLogin(response.credential);
         onSuccess(result);
       } catch (err: any) {
         onError(err.message || "Google sign-in failed");
+      } finally {
+        setIsLoading(false);
       }
     },
     [onSuccess, onError]
@@ -59,7 +64,6 @@ const GoogleSignInButton = ({ onSuccess, onError, text = "signin_with" }: Google
       });
     };
 
-    // GIS script may still be loading
     if (window.google) {
       renderButton();
     } else {
@@ -73,7 +77,16 @@ const GoogleSignInButton = ({ onSuccess, onError, text = "signin_with" }: Google
     }
   }, [handleCredentialResponse, text]);
 
-  return <div ref={buttonRef} className="w-full [&>div]:!w-full" />;
+  return (
+    <div className="relative">
+      <div ref={buttonRef} className="w-full [&>div]:!w-full" />
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center rounded-md bg-background/80 backdrop-blur-sm">
+          <Loader2 className="h-5 w-5 animate-spin text-accent" />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default GoogleSignInButton;
