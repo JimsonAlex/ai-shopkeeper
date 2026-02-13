@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
@@ -55,8 +55,92 @@ const plans = [
   },
 ];
 
+const PricingCard = ({ plan, yearly }: { plan: typeof plans[0]; yearly: boolean }) => {
+  const price = yearly ? plan.yearlyPrice : plan.monthlyPrice;
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+      }}
+      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+      className={`rounded-2xl p-6 md:p-8 flex flex-col border ${
+        plan.featured
+          ? "border-accent/25 bg-card shadow-2xl shadow-accent/[0.06] relative ring-1 ring-accent/10"
+          : "border-border/80 bg-card"
+      }`}
+    >
+      {plan.featured && (
+        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-[11px] font-bold uppercase tracking-wider">
+          Most Popular
+        </span>
+      )}
+      <div className="mb-7">
+        <h3 className="font-display text-base font-semibold text-foreground mb-3">{plan.name}</h3>
+        <div className="flex items-baseline gap-1">
+          <motion.span
+            key={price}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className="font-display text-4xl font-bold text-foreground tracking-tight"
+          >
+            {price}
+          </motion.span>
+          {plan.period && <span className="text-muted-foreground text-sm">{plan.period}</span>}
+        </div>
+        {yearly && price !== "Free" && (
+          <p className="text-xs text-muted-foreground mt-1.5">Billed annually</p>
+        )}
+        <p className="text-sm mt-3 text-muted-foreground">{plan.desc}</p>
+      </div>
+
+      <ul className="space-y-3.5 mb-8 flex-1">
+        {plan.features.map((f) => (
+          <li key={f} className="flex items-start gap-3 text-sm">
+            <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" strokeWidth={2.5} />
+            <span className="text-muted-foreground">{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      <Button
+        className={`w-full font-semibold rounded-xl h-11 text-sm ${
+          plan.featured
+            ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20"
+            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+        }`}
+      >
+        {plan.cta} {plan.featured && <ArrowRight className="ml-1 h-4 w-4" />}
+      </Button>
+    </motion.div>
+  );
+};
+
 const PricingSection = () => {
   const [yearly, setYearly] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(1); // default to featured
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    // Scroll to featured card (index 1) on mount
+    const cardWidth = 280;
+    const gap = 12;
+    el.scrollLeft = (cardWidth + gap) * 1;
+
+    const handleScroll = () => {
+      const scrollLeft = el.scrollLeft;
+      const cw = el.firstElementChild?.getBoundingClientRect().width ?? cardWidth;
+      const index = Math.round(scrollLeft / (cw + gap));
+      setActiveIndex(Math.min(index, plans.length - 1));
+    };
+
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section id="pricing" className="py-16 md:py-28 bg-background relative">
@@ -108,77 +192,47 @@ const PricingSection = () => {
           </div>
         </motion.div>
 
+        {/* Mobile: horizontal snap carousel */}
+        <div className="sm:hidden">
+          <motion.div
+            ref={scrollRef}
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide"
+            style={{ WebkitOverflowScrolling: "touch" }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+          >
+            {plans.map((plan, i) => (
+              <div key={plan.name} className="snap-start shrink-0 w-[280px]">
+                <PricingCard plan={plan} yearly={yearly} />
+              </div>
+            ))}
+          </motion.div>
+
+          <div className="flex items-center justify-center gap-1.5 mt-4">
+            {plans.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? "w-6 bg-accent" : "w-1.5 bg-muted-foreground/20"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: grid */}
         <motion.div
-          className="grid grid-cols-1 gap-4 md:grid-cols-3 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
+          className="hidden sm:grid md:grid-cols-3 gap-4 max-w-md sm:max-w-lg md:max-w-5xl mx-auto items-start"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
-          {plans.map((plan) => {
-            const price = yearly ? plan.yearlyPrice : plan.monthlyPrice;
-            return (
-              <motion.div
-                key={plan.name}
-                variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-                }}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className={`rounded-2xl p-6 md:p-8 flex flex-col border ${
-                  plan.featured
-                    ? "border-accent/25 bg-card shadow-2xl shadow-accent/[0.06] relative ring-1 ring-accent/10"
-                    : "border-border/80 bg-card"
-                }`}
-              >
-                {plan.featured && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-[11px] font-bold uppercase tracking-wider">
-                    Most Popular
-                  </span>
-                )}
-                <div className="mb-7">
-                  <h3 className="font-display text-base font-semibold text-foreground mb-3">{plan.name}</h3>
-                  <div className="flex items-baseline gap-1">
-                    <motion.span
-                      key={price}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="font-display text-4xl font-bold text-foreground tracking-tight"
-                    >
-                      {price}
-                    </motion.span>
-                    {plan.period && <span className="text-muted-foreground text-sm">{plan.period}</span>}
-                  </div>
-                  {yearly && price !== "Free" && (
-                    <p className="text-xs text-muted-foreground mt-1.5">
-                      Billed annually
-                    </p>
-                  )}
-                  <p className="text-sm mt-3 text-muted-foreground">{plan.desc}</p>
-                </div>
-
-                <ul className="space-y-3.5 mb-8 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-sm">
-                      <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" strokeWidth={2.5} />
-                      <span className="text-muted-foreground">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  className={`w-full font-semibold rounded-xl h-11 text-sm ${
-                    plan.featured
-                      ? "bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20"
-                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                  }`}
-                >
-                  {plan.cta} {plan.featured && <ArrowRight className="ml-1 h-4 w-4" />}
-                </Button>
-              </motion.div>
-            );
-          })}
+          {plans.map((plan) => (
+            <PricingCard key={plan.name} plan={plan} yearly={yearly} />
+          ))}
         </motion.div>
       </div>
     </section>
