@@ -11,16 +11,29 @@ import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/landing/Footer";
 import ScrollToTop from "@/components/landing/ScrollToTop";
 
+const Divider = () => (
+  <div className="max-w-5xl mx-auto px-4">
+    <div className="h-px bg-border/60" />
+  </div>
+);
+
 const Index = () => (
   <main>
     <HeroSection />
+    <Divider />
     <ProblemSection />
+    <Divider />
     <SolutionSection />
+    <Divider />
     <FeaturesSection />
     <PersonaSection />
+    <Divider />
     <HowItWorksSection />
+    <Divider />
     <TrustSection />
+    <Divider />
     <PricingSection />
+    <Divider />
     <FAQSection />
     <CTASection />
     <Footer />
