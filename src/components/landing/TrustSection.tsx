@@ -23,7 +23,7 @@ const testimonials = [
 ];
 
 const TrustSection = () => (
-  <section id="testimonials" className="py-28 md:py-40 bg-background relative overflow-hidden">
+  <section id="testimonials" className="py-20 md:py-28 bg-background relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
     <div className="container mx-auto px-4 md:px-8 relative">
       <motion.div

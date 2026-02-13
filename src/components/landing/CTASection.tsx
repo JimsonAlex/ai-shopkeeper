@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CTASection = () => (
-  <section className="py-28 md:py-40 bg-primary relative overflow-hidden">
+  <section className="py-20 md:py-28 bg-primary relative overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--accent)/0.08),transparent_55%)]" />
     {/* Subtle side glows */}
     <div className="absolute top-1/2 -translate-y-1/2 -left-32 w-64 h-64 rounded-full bg-accent/[0.04] blur-[100px]" />
