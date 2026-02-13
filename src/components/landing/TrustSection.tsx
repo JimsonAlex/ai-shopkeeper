@@ -23,29 +23,29 @@ const testimonials = [
   },
 ];
 
-const TestimonialCard = ({ t, index }: { t: typeof testimonials[0]; index: number }) => (
+const TestimonialCard = ({ t }: { t: typeof testimonials[0] }) => (
   <motion.div
     variants={{
       hidden: { opacity: 0, y: 30 },
       visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
     }}
-    whileHover={{ y: -4, transition: { duration: 0.2 } }}
-    className="rounded-2xl p-6 md:p-8 border border-border/80 bg-card hover:border-accent/15 hover:shadow-xl hover:shadow-accent/[0.04] transition-all duration-300 relative"
+    whileHover={{ y: -6, transition: { duration: 0.25 } }}
+    className="rounded-2xl p-7 md:p-9 border border-border/60 bg-gradient-to-b from-card to-card/80 hover:border-accent/25 hover:shadow-2xl hover:shadow-accent/[0.06] transition-all duration-300 relative"
   >
-    <Quote className="h-8 w-8 text-accent/[0.1] absolute top-6 right-6" />
-    <div className="flex gap-0.5 mb-5">
+    <Quote className="h-10 w-10 text-accent/[0.08] absolute top-6 right-6" />
+    <div className="flex gap-0.5 mb-6">
       {Array.from({ length: t.stars }).map((_, j) => (
-        <Star key={j} className="h-3.5 w-3.5 fill-accent text-accent" />
+        <Star key={j} className="h-4 w-4 fill-accent text-accent" />
       ))}
     </div>
-    <p className="text-foreground/80 text-sm leading-relaxed mb-8">"{t.quote}"</p>
-    <div className="flex items-center gap-3">
-      <div className="w-9 h-9 rounded-full bg-accent/[0.08] flex items-center justify-center text-accent font-display font-bold text-xs">
+    <p className="text-foreground/85 text-[15px] leading-relaxed mb-9 font-medium">"{t.quote}"</p>
+    <div className="flex items-center gap-4">
+      <div className="w-11 h-11 rounded-full bg-accent/[0.08] flex items-center justify-center text-accent font-display font-bold text-sm">
         {t.author.charAt(0)}
       </div>
       <div>
-        <p className="text-foreground font-semibold text-sm">{t.author}</p>
-        <p className="text-muted-foreground text-xs">{t.role}</p>
+        <p className="text-foreground font-bold text-sm tracking-tight">{t.author}</p>
+        <p className="text-muted-foreground text-xs mt-0.5">{t.role}</p>
       </div>
     </div>
   </motion.div>
@@ -72,21 +72,26 @@ const TrustSection = () => {
   }, []);
 
   return (
-    <section id="testimonials" className="py-16 md:py-28 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.03),transparent_50%)]" />
+    <section id="testimonials" className="py-20 md:py-32 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.04),transparent_50%)]" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/[0.03] blur-[120px] pointer-events-none" />
+
       <div className="container mx-auto px-4 md:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center max-w-2xl mx-auto mb-12 md:mb-20"
+          className="text-center max-w-2xl mx-auto mb-16 md:mb-24"
         >
-          <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-3.5 py-1 text-accent text-xs font-semibold uppercase tracking-widest mb-6">
+          <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.06] px-4 py-1.5 text-accent text-[11px] font-bold uppercase tracking-[0.15em] mb-8">
             Testimonials
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[3.25rem] font-bold text-foreground leading-[1.1] tracking-tight">
-            Trusted by shop owners who demand accuracy
+          <h2 className="font-display text-4xl sm:text-5xl md:text-[3.75rem] font-bold text-foreground leading-[1.08] tracking-tight">
+            Trusted by shop owners who{" "}
+            <span className="bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
+              demand accuracy
+            </span>
           </h2>
         </motion.div>
 
@@ -103,7 +108,7 @@ const TrustSection = () => {
           >
             {testimonials.map((t, i) => (
               <div key={i} className="snap-start shrink-0 w-[280px]">
-                <TestimonialCard t={t} index={i} />
+                <TestimonialCard t={t} />
               </div>
             ))}
           </motion.div>
@@ -122,14 +127,14 @@ const TrustSection = () => {
 
         {/* Desktop: grid */}
         <motion.div
-          className="hidden sm:grid md:grid-cols-3 gap-4 max-w-5xl mx-auto"
+          className="hidden sm:grid md:grid-cols-3 gap-5 max-w-5xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+          variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
         >
           {testimonials.map((t, i) => (
-            <TestimonialCard key={i} t={t} index={i} />
+            <TestimonialCard key={i} t={t} />
           ))}
         </motion.div>
       </div>
