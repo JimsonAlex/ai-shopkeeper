@@ -11,6 +11,7 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
 import SmartTextInput from "@/components/dashboard/SmartTextInput";
+import VoiceInput from "@/components/dashboard/VoiceInput";
 import AuditLogCard from "@/components/dashboard/AuditLogCard";
 
 /* ───── Mock data ───── */
@@ -192,7 +193,12 @@ export default function Dashboard() {
             <SmartTextInput isVisible variant="desktop" onClose={handleCloseInput} />
           </div>
         )}
-        {activeInput && activeInput !== "Text" && (
+        {activeInput === "Voice" && (
+          <div className="hidden sm:block">
+            <VoiceInput isVisible variant="desktop" onClose={handleCloseInput} />
+          </div>
+        )}
+        {activeInput === "Photo" && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -202,14 +208,12 @@ export default function Dashboard() {
           >
             <Card className="bg-card border-border border-dashed">
               <CardContent className="p-4 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-                  {activeInput === "Voice" && <Mic className="h-5 w-5 text-accent" />}
-                  {activeInput === "Photo" && <Camera className="h-5 w-5 text-amber-500" />}
+                <div className="h-10 w-10 rounded-full bg-amber-500/10 flex items-center justify-center">
+                  <Camera className="h-5 w-5 text-amber-500" />
                 </div>
                 <div className="flex-1">
-                <p className="text-sm text-foreground font-medium">
-                    {activeInput === "Voice" && "Tap and speak — \"Sold 5 units to Marcus for $750\""}
-                    {activeInput === "Photo" && "Take a photo of a receipt or invoice"}
+                  <p className="text-sm text-foreground font-medium">
+                    Take a photo of a receipt or invoice
                   </p>
                   <p className="text-[11px] text-muted-foreground mt-0.5">
                     AI will automatically detect if it's a sale, expense, or stock update
@@ -455,7 +459,10 @@ export default function Dashboard() {
           {activeInput === "Text" && (
             <SmartTextInput isVisible variant="mobile" onClose={handleCloseInput} />
           )}
-          {activeInput && activeInput !== "Text" && (
+          {activeInput === "Voice" && (
+            <VoiceInput isVisible variant="mobile" onClose={handleCloseInput} />
+          )}
+          {activeInput === "Photo" && (
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -464,8 +471,7 @@ export default function Dashboard() {
               className="mx-4 mb-2 rounded-xl bg-card border border-border shadow-lg px-4 py-3"
             >
               <p className="text-sm text-foreground font-medium">
-                {activeInput === "Voice" && "🎙️ Speak naturally — \"Sold 5 units for $750\""}
-                {activeInput === "Photo" && "📸 Snap a receipt or invoice"}
+                📸 Snap a receipt or invoice
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
                 AI detects if it's a sale, expense, or stock update
