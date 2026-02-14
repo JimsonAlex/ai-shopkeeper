@@ -16,6 +16,7 @@ const KPI = [
   {
     label: "Cash Position",
     value: "TZS 2,450,000",
+    shortValue: "2.45M",
     change: "+12.5%",
     trend: "up" as const,
     icon: Wallet,
@@ -24,6 +25,7 @@ const KPI = [
   {
     label: "Today's Sales",
     value: "TZS 680,000",
+    shortValue: "680K",
     change: "+8.2%",
     trend: "up" as const,
     icon: ShoppingCart,
@@ -32,6 +34,7 @@ const KPI = [
   {
     label: "Today's Expenses",
     value: "TZS 125,000",
+    shortValue: "125K",
     change: "-3.1%",
     trend: "down" as const,
     icon: Receipt,
@@ -40,6 +43,7 @@ const KPI = [
   {
     label: "Gross Profit",
     value: "32.4%",
+    shortValue: "32.4%",
     change: "+1.8%",
     trend: "up" as const,
     icon: TrendingUp,
@@ -138,13 +142,13 @@ export default function Dashboard() {
 
       {/* Quick Actions — mobile horizontal scroll */}
       <div className="sm:hidden -mx-4 px-4">
-        <motion.div {...fadeUp} transition={{ duration: 0.3, delay: 0.05 }} className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+        <motion.div {...fadeUp} transition={{ duration: 0.3, delay: 0.05 }} className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
           {QUICK_ACTIONS.map((a) => (
             <button
               key={a.label}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium whitespace-nowrap transition-all ${a.color}`}
+              className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium whitespace-nowrap transition-all active:scale-95 min-h-[44px] ${a.color}`}
             >
-              <a.icon className="h-4 w-4" />
+              <a.icon className="h-5 w-5" />
               {a.label}
             </button>
           ))}
@@ -152,24 +156,27 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
         {KPI.map((kpi, i) => {
           const Icon = kpi.icon;
           const isUp = kpi.trend === "up";
           return (
             <motion.div key={kpi.label} {...fadeUp} transition={{ duration: 0.3, delay: i * 0.05 }}>
-              <Card className="bg-card border-border hover:border-accent/20 transition-all hover:shadow-md hover:shadow-accent/5 cursor-pointer group">
-                <CardContent className="p-4 md:p-5">
-                  <div className="flex items-center justify-between mb-2 md:mb-3">
-                    <div className="h-8 w-8 md:h-9 md:w-9 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
-                      <Icon className="h-4 w-4 text-accent" />
+              <Card className="bg-card border-border hover:border-accent/20 transition-all hover:shadow-md hover:shadow-accent/5 cursor-pointer group active:scale-[0.98]">
+                <CardContent className="p-3 md:p-5">
+                  <div className="flex items-center justify-between mb-1.5 md:mb-3">
+                    <div className="h-7 w-7 md:h-9 md:w-9 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
+                      <Icon className="h-3.5 w-3.5 md:h-4 md:w-4 text-accent" />
                     </div>
                     <span className={`flex items-center gap-0.5 text-[10px] md:text-xs font-medium ${isUp ? "text-emerald-500" : "text-rose-500"}`}>
                       {isUp ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
                       {kpi.change}
                     </span>
                   </div>
-                  <p className="font-display text-lg md:text-xl font-bold text-foreground">{kpi.value}</p>
+                  <p className="font-display text-[15px] md:text-xl font-bold text-foreground truncate">
+                    <span className="md:hidden">{kpi.shortValue}</span>
+                    <span className="hidden md:inline">{kpi.value}</span>
+                  </p>
                   <p className="text-[10px] md:text-[11px] text-muted-foreground mt-0.5">{kpi.label}</p>
                   <p className="text-[9px] md:text-[10px] text-muted-foreground/60 mt-1 hidden sm:block">{kpi.detail}</p>
                 </CardContent>
@@ -285,7 +292,7 @@ export default function Dashboard() {
                   </div>
                 );
               })}
-              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-2 flex items-center gap-1">
+              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-2 flex items-center gap-1 min-h-[44px] py-2">
                 View all inventory <ChevronRight className="h-3 w-3" />
               </button>
             </CardContent>
@@ -308,23 +315,25 @@ export default function Dashboard() {
               {CREDITS.map((c) => (
                 <div
                   key={c.name}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-secondary/50 transition-colors cursor-pointer group"
+                  className="flex items-center gap-2.5 md:gap-3 rounded-lg px-2.5 md:px-3 py-3 hover:bg-secondary/50 active:bg-secondary/70 transition-colors cursor-pointer group min-h-[52px]"
                 >
                   <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                     <span className="text-xs font-bold text-blue-500">{c.name.charAt(0)}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground font-medium truncate group-hover:text-accent transition-colors">{c.name}</p>
-                    <p className={`text-[10px] ${c.status === "danger" ? "text-rose-500" : c.status === "warning" ? "text-amber-500" : "text-muted-foreground"}`}>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <p className="text-sm text-foreground font-medium truncate group-hover:text-accent transition-colors">{c.name}</p>
+                      <span className="text-xs font-semibold text-foreground whitespace-nowrap flex-shrink-0">
+                        {c.owed}
+                      </span>
+                    </div>
+                    <p className={`text-[10px] mt-0.5 ${c.status === "danger" ? "text-rose-500" : c.status === "warning" ? "text-amber-500" : "text-muted-foreground"}`}>
                       Due: {c.due}
                     </p>
                   </div>
-                  <span className="text-sm font-medium text-foreground whitespace-nowrap">
-                    {c.owed}
-                  </span>
                 </div>
               ))}
-              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-1 flex items-center gap-1">
+              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-1 flex items-center gap-1 min-h-[44px] py-2">
                 View all debtors <ChevronRight className="h-3 w-3" />
               </button>
             </CardContent>
@@ -350,7 +359,7 @@ export default function Dashboard() {
                     <div
                       key={a.id}
                       onClick={() => setExpandedActivity(isExpanded ? null : a.id)}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-secondary/50 transition-all cursor-pointer"
+                      className="flex items-center gap-2.5 md:gap-3 rounded-lg px-2.5 md:px-3 py-3 hover:bg-secondary/50 active:bg-secondary/70 transition-all cursor-pointer min-h-[52px]"
                     >
                       <div className={`h-7 w-7 rounded-full flex items-center justify-center flex-shrink-0 ${isIncome ? "bg-emerald-500/10" : "bg-rose-500/10"}`}>
                         <Icon className={`h-3.5 w-3.5 ${isIncome ? "text-emerald-500" : "text-rose-500"}`} />
@@ -366,7 +375,7 @@ export default function Dashboard() {
                   );
                 })}
               </div>
-              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-3 flex items-center gap-1">
+              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-3 flex items-center gap-1 min-h-[44px] py-2">
                 View full ledger <ChevronRight className="h-3 w-3" />
               </button>
             </CardContent>
