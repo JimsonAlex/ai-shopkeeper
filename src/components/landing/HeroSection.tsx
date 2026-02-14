@@ -130,8 +130,8 @@ const Hero = () => (
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <Sparkles className="h-3.5 w-3.5 text-accent" />
-          <span className="text-accent text-xs font-medium tracking-wide uppercase">Trusted by 2,000+ shop owners</span>
+          <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+          <span className="text-emerald-300 text-xs font-medium tracking-wide uppercase">Trusted by 2,000+ shop owners</span>
         </motion.div>
       </FadeIn>
 
@@ -153,13 +153,13 @@ const Hero = () => (
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="text-accent">Retail Finances</span>
+            <span className="text-emerald-400">Retail Finances</span>
           </motion.span>
         </h1>
       </FadeIn>
 
       <FadeIn delay={0.2}>
-        <p className="text-base md:text-lg text-primary-foreground/40 max-w-md mx-auto mb-12 leading-relaxed">
+        <p className="text-base md:text-lg text-primary-foreground/70 max-w-md mx-auto mb-12 leading-relaxed">
           AI-powered accounting that turns voice notes, receipts, and texts into real-time profit insights — automatically.
         </p>
       </FadeIn>
@@ -170,14 +170,14 @@ const Hero = () => (
             <motion.button
               whileHover={{ scale: 1.03, boxShadow: "0 0 40px hsl(166 81% 38% / 0.35)" }}
               whileTap={{ scale: 0.97 }}
-              className="group relative inline-flex items-center gap-2.5 bg-accent text-accent-foreground font-semibold text-sm sm:text-base px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl shadow-2xl shadow-accent/30 transition-colors hover:bg-accent/90"
+              className="group relative inline-flex items-center gap-2.5 bg-emerald-500 text-white font-semibold text-sm sm:text-base px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl shadow-2xl shadow-emerald-500/30 transition-colors hover:bg-emerald-600"
             >
               Start for free
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </motion.button>
           </Link>
           <a href="#how-it-works" onClick={(e) => { e.preventDefault(); document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }}>
-            <Button variant="ghost" size="lg" className="text-primary-foreground/40 hover:text-primary-foreground hover:bg-primary-foreground/5 font-medium text-sm px-8 h-12 rounded-xl">
+            <Button variant="ghost" size="lg" className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5 font-medium text-sm px-8 h-12 rounded-xl">
               See how it works
             </Button>
           </a>
@@ -189,11 +189,11 @@ const Hero = () => (
         <div className="mt-10 flex items-center justify-center gap-3">
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4].map((i) => (
-              <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
+              <Star key={i} className="h-3.5 w-3.5 fill-emerald-400 text-emerald-400" />
             ))}
-            <Star className="h-3.5 w-3.5 fill-accent/30 text-accent/30" />
+            <Star className="h-3.5 w-3.5 fill-emerald-400/30 text-emerald-400/30" />
           </div>
-          <span className="text-primary-foreground/25 text-xs font-medium">4.9 from 500+ reviews</span>
+          <span className="text-primary-foreground/50 text-xs font-medium">4.9 from 500+ reviews</span>
         </div>
       </FadeIn>
 
