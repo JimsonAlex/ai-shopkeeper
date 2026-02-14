@@ -11,6 +11,7 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
 import SmartTextInput from "@/components/dashboard/SmartTextInput";
+import AuditLogCard from "@/components/dashboard/AuditLogCard";
 
 /* ───── Mock data ───── */
 const KPI = [
@@ -437,6 +438,14 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </motion.div>
+      </motion.div>
+
+      {/* AI Audit Log */}
+      <motion.div
+        {...sectionEntrance}
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
+        <AuditLogCard />
       </motion.div>
 
       {/* ═══ Mobile floating input bar ═══ */}
