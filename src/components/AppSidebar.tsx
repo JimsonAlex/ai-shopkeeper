@@ -1,7 +1,8 @@
 import {
   LayoutDashboard, ShoppingCart, Receipt, Package, BarChart3,
-  Settings, LogOut, Bot, ChevronLeft,
+  Settings, LogOut, Bot, ChevronLeft, Sun, Moon,
 } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -31,13 +32,24 @@ const secondaryNav = [
 ];
 
 export function AppSidebar() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <Sidebar className="border-r border-border bg-card">
       <SidebarHeader className="p-4 flex flex-row items-center justify-between">
         <span className="font-display font-bold text-lg text-primary tracking-tight">Nexus</span>
-        <SidebarTrigger className="text-muted-foreground hover:text-foreground h-7 w-7">
-          <ChevronLeft className="h-4 w-4" />
-        </SidebarTrigger>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={toggleTheme}
+            className="h-7 w-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+          <SidebarTrigger className="text-muted-foreground hover:text-foreground h-7 w-7">
+            <ChevronLeft className="h-4 w-4" />
+          </SidebarTrigger>
+        </div>
       </SidebarHeader>
 
       <SidebarContent className="px-2">
