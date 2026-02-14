@@ -17,17 +17,17 @@ import AuditLogCard from "@/components/dashboard/AuditLogCard";
 const KPI = [
   {
     label: "Cash Position",
-    value: "TZS 2,450,000",
-    shortValue: "2.45M",
+    value: "$24,500",
+    shortValue: "$24.5K",
     change: "+12.5%",
     trend: "up" as const,
     icon: Wallet,
-    detail: "Drawer + M-Pesa + Bank",
+    detail: "Cash + Digital + Bank",
   },
   {
     label: "Today's Sales",
-    value: "TZS 680,000",
-    shortValue: "680K",
+    value: "$6,800",
+    shortValue: "$6.8K",
     change: "+8.2%",
     trend: "up" as const,
     icon: ShoppingCart,
@@ -35,8 +35,8 @@ const KPI = [
   },
   {
     label: "Today's Expenses",
-    value: "TZS 125,000",
-    shortValue: "125K",
+    value: "$1,250",
+    shortValue: "$1.25K",
     change: "-3.1%",
     trend: "down" as const,
     icon: Receipt,
@@ -49,7 +49,7 @@ const KPI = [
     change: "+1.8%",
     trend: "up" as const,
     icon: TrendingUp,
-    detail: "TZS 220,320 today",
+    detail: "$2,203 today",
   },
 ];
 
@@ -64,23 +64,23 @@ const SALES_TREND = [
 ];
 
 const LOW_STOCK = [
-  { name: "Cement (50kg)", stock: 3, reorder: 10, value: "TZS 45,000" },
-  { name: "Roofing Nails (kg)", stock: 5, reorder: 20, value: "TZS 15,000" },
-  { name: "White Paint (4L)", stock: 2, reorder: 8, value: "TZS 60,000" },
+  { name: "Premium Blend Coffee (1kg)", stock: 3, reorder: 10, value: "$45" },
+  { name: "Organic Honey (500ml)", stock: 5, reorder: 20, value: "$18" },
+  { name: "Matcha Powder (200g)", stock: 2, reorder: 8, value: "$32" },
 ];
 
 const CREDITS = [
-  { name: "Aisha Bakery", owed: "TZS 60,000", due: "3 days", status: "warning" },
-  { name: "John Msafiri", owed: "TZS 120,000", due: "Overdue", status: "danger" },
-  { name: "Mama Halima", owed: "TZS 35,000", due: "1 week", status: "ok" },
+  { name: "Bloom Café", owed: "$600", due: "3 days", status: "warning" },
+  { name: "Marcus Chen", owed: "$1,200", due: "Overdue", status: "danger" },
+  { name: "Lena Torres", owed: "$350", due: "1 week", status: "ok" },
 ];
 
 const ACTIVITY = [
-  { id: 1, type: "sale", desc: "Cash sale — 5 bags cement to John", amount: "+TZS 75,000", time: "2 min ago", icon: ShoppingCart },
-  { id: 2, type: "expense", desc: "Transport — delivery fuel", amount: "-TZS 15,000", time: "18 min ago", icon: Receipt },
-  { id: 3, type: "credit", desc: "Credit sale — Aisha Bakery (50% paid)", amount: "+TZS 120,000", time: "45 min ago", icon: CreditCard },
-  { id: 4, type: "sale", desc: "Cash sale — 20kg nails + 2 padlocks", amount: "+TZS 38,000", time: "1 hr ago", icon: ShoppingCart },
-  { id: 5, type: "expense", desc: "Restock — 20 bags cement from supplier", amount: "-TZS 280,000", time: "2 hr ago", icon: Receipt },
+  { id: 1, type: "sale", desc: "Walk-in sale — 5 units to Marcus", amount: "+$750", time: "2 min ago", icon: ShoppingCart },
+  { id: 2, type: "expense", desc: "Logistics — courier delivery", amount: "-$150", time: "18 min ago", icon: Receipt },
+  { id: 3, type: "credit", desc: "Net-30 sale — Bloom Café (50% paid)", amount: "+$1,200", time: "45 min ago", icon: CreditCard },
+  { id: 4, type: "sale", desc: "Online order — matcha + honey bundle", amount: "+$380", time: "1 hr ago", icon: ShoppingCart },
+  { id: 5, type: "expense", desc: "Restock — supplier shipment received", amount: "-$2,800", time: "2 hr ago", icon: Receipt },
 ];
 
 /* ───── Universal input methods ───── */
@@ -135,7 +135,7 @@ function ChartTooltip({ active, payload, label }: any) {
       <p className="text-xs font-medium text-foreground mb-1">{label}</p>
       {payload.map((p: any) => (
         <p key={p.dataKey} className="text-[11px] text-muted-foreground">
-          {p.dataKey === "sales" ? "Sales" : "Expenses"}: <span className="font-medium text-foreground">TZS {(p.value / 1000).toFixed(0)}k</span>
+          {p.dataKey === "sales" ? "Sales" : "Expenses"}: <span className="font-medium text-foreground">${(p.value / 1000).toFixed(0)}k</span>
         </p>
       ))}
     </div>
@@ -159,10 +159,10 @@ export default function Dashboard() {
       >
         <div>
           <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-            Good afternoon, Musa 👋
+            Good afternoon 👋
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Here's how your shop is doing today — <span className="text-foreground font-medium">Feb 14, 2026</span>
+            Here's your business at a glance — <span className="text-foreground font-medium">Feb 14, 2026</span>
           </p>
         </div>
 
@@ -207,8 +207,8 @@ export default function Dashboard() {
                   {activeInput === "Photo" && <Camera className="h-5 w-5 text-amber-500" />}
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-foreground font-medium">
-                    {activeInput === "Voice" && "Tap and speak — \"Sold 5 bags cement to John for 75,000\""}
+                <p className="text-sm text-foreground font-medium">
+                    {activeInput === "Voice" && "Tap and speak — \"Sold 5 units to Marcus for $750\""}
                     {activeInput === "Photo" && "Take a photo of a receipt or invoice"}
                   </p>
                   <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -362,7 +362,7 @@ export default function Dashboard() {
                 <Users className="h-4 w-4 text-blue-500" />
                 Outstanding Credits
                 <span className="ml-auto text-[10px] font-normal text-foreground bg-secondary px-2 py-0.5 rounded-full">
-                  TZS 215,000
+                  $2,150
                 </span>
               </CardTitle>
             </CardHeader>
@@ -464,7 +464,7 @@ export default function Dashboard() {
               className="mx-4 mb-2 rounded-xl bg-card border border-border shadow-lg px-4 py-3"
             >
               <p className="text-sm text-foreground font-medium">
-                {activeInput === "Voice" && "🎙️ Speak naturally — \"Sold 5 bags cement for 75k\""}
+                {activeInput === "Voice" && "🎙️ Speak naturally — \"Sold 5 units for $750\""}
                 {activeInput === "Photo" && "📸 Snap a receipt or invoice"}
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">

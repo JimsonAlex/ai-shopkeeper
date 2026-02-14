@@ -8,21 +8,21 @@ import { auditLogStore } from "@/stores/auditLog";
 
 /* ───── Known accounts & products for auto-fill ───── */
 const KNOWN_ACCOUNTS = [
-  { name: "John Msafiri", type: "customer", recent: true },
-  { name: "Aisha Bakery", type: "customer", recent: true },
-  { name: "Mama Halima", type: "customer", recent: true },
-  { name: "Ali Hardware", type: "supplier", recent: false },
-  { name: "Kariakoo Wholesale", type: "supplier", recent: false },
-  { name: "M-Pesa Agent", type: "other", recent: true },
+  { name: "Marcus Chen", type: "customer", recent: true },
+  { name: "Bloom Café", type: "customer", recent: true },
+  { name: "Lena Torres", type: "customer", recent: true },
+  { name: "Atlas Supply Co.", type: "supplier", recent: false },
+  { name: "Metro Wholesale", type: "supplier", recent: false },
+  { name: "Stripe Payments", type: "other", recent: true },
 ];
 
 const KNOWN_PRODUCTS = [
-  { name: "Cement (50kg)", price: 15000 },
-  { name: "Roofing Nails (kg)", price: 3000 },
-  { name: "White Paint (4L)", price: 30000 },
-  { name: "Padlock (medium)", price: 5000 },
-  { name: "Iron Sheet (gauge 30)", price: 12000 },
-  { name: "PVC Pipe (1 inch)", price: 4500 },
+  { name: "Premium Blend Coffee (1kg)", price: 45 },
+  { name: "Organic Honey (500ml)", price: 18 },
+  { name: "Matcha Powder (200g)", price: 32 },
+  { name: "Cold Brew Concentrate (1L)", price: 28 },
+  { name: "Ceramic Pour-Over Set", price: 65 },
+  { name: "Bamboo Tumbler", price: 22 },
 ];
 
 /* ───── Intent detection — keyword-based ───── */
@@ -78,18 +78,18 @@ function detectIntent(text: string): DetectedIntent | null {
 
 /* ───── Extract amount from text ───── */
 function extractAmount(text: string): string | null {
-  // Match patterns: 75,000 | 75000 | 75k | TZS 75,000
+  // Match patterns: 75,000 | 75000 | 75k | $75
   const patterns = [
-    /(?:tzs\s*)?(\d{1,3}(?:,\d{3})+)/i,
-    /(?:tzs\s*)?(\d+)k\b/i,
-    /(?:tzs\s*)(\d{4,})/i,
+    /\$?\s*(\d{1,3}(?:,\d{3})+)/i,
+    /\$?\s*(\d+)k\b/i,
+    /\$\s*(\d+(?:\.\d{1,2})?)/i,
   ];
   for (const p of patterns) {
     const m = text.match(p);
     if (m) {
       let val = m[1].replace(/,/g, "");
       if (text.match(/\d+k\b/i)) val = String(Number(val) * 1000);
-      return `TZS ${Number(val).toLocaleString()}`;
+      return `$${Number(val).toLocaleString()}`;
     }
   }
   return null;
@@ -278,7 +278,7 @@ export default function SmartTextInput({ isVisible, onClose, variant }: SmartTex
                 value={text}
                 onChange={(e) => setText(e.target.value.slice(0, 200))}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                placeholder="e.g. Sold 5 bags cement to John for 75k"
+                placeholder="e.g. Sold 5 units to Marcus for $750"
                 className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none min-w-0"
                 autoComplete="off"
                 maxLength={200}
