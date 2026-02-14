@@ -48,7 +48,7 @@ const MarqueeRow = ({
       {items.map((name, i) => (
         <span
           key={`${name}-${i}`}
-          className="font-display text-2xl md:text-3xl font-bold text-foreground/[0.08] hover:text-foreground/[0.2] transition-colors duration-500 select-none tracking-tight whitespace-nowrap"
+          className="font-display text-2xl md:text-3xl font-extrabold text-foreground/20 hover:text-foreground/40 transition-colors duration-500 select-none tracking-tight whitespace-nowrap"
         >
           {name}
         </span>
