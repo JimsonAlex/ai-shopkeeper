@@ -149,7 +149,7 @@ export default function Dashboard() {
   const handleCloseInput = useCallback(() => setActiveInput(null), []);
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 pb-28 md:pb-8">
+    <div className="p-5 md:p-8 lg:p-10 max-w-7xl mx-auto space-y-8 pb-28 md:pb-10">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -226,30 +226,30 @@ export default function Dashboard() {
         variants={staggerContainer}
         initial="initial"
         animate="animate"
-        className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5"
       >
         {KPI.map((kpi) => {
           const Icon = kpi.icon;
           const isUp = kpi.trend === "up";
           return (
             <motion.div key={kpi.label} variants={cardEntrance}>
-              <Card className="bg-card border-border hover:border-accent/20 transition-all hover:shadow-md hover:shadow-accent/5 cursor-pointer group active:scale-[0.97]">
-                <CardContent className="p-3 md:p-5">
-                  <div className="flex items-center justify-between mb-1.5 md:mb-3">
-                    <div className="h-7 w-7 md:h-9 md:w-9 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
-                      <Icon className="h-3.5 w-3.5 md:h-4 md:w-4 text-accent" />
+              <Card className="bg-card border-border hover:border-primary/20 transition-all hover:shadow-lg hover:shadow-primary/5 cursor-pointer group active:scale-[0.98]">
+                <CardContent className="p-4 md:p-6">
+                  <div className="flex items-center justify-between mb-2 md:mb-4">
+                    <div className="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-primary/8 flex items-center justify-center group-hover:bg-primary/12 transition-colors">
+                      <Icon className="h-4 w-4 md:h-[18px] md:w-[18px] text-primary" />
                     </div>
                     <span className={`flex items-center gap-0.5 text-[10px] md:text-xs font-medium ${isUp ? "text-emerald-500" : "text-rose-500"}`}>
                       {isUp ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
                       {kpi.change}
                     </span>
                   </div>
-                  <p className="font-display text-[15px] md:text-xl font-bold text-foreground truncate">
+                  <p className="font-display text-base md:text-2xl font-bold text-foreground tracking-tight truncate">
                     <span className="md:hidden">{kpi.shortValue}</span>
                     <span className="hidden md:inline">{kpi.value}</span>
                   </p>
-                  <p className="text-[10px] md:text-[11px] text-muted-foreground mt-0.5">{kpi.label}</p>
-                  <p className="text-[9px] md:text-[10px] text-muted-foreground/60 mt-1 hidden sm:block">{kpi.detail}</p>
+                  <p className="text-[11px] md:text-xs text-muted-foreground mt-1 font-medium">{kpi.label}</p>
+                  <p className="text-[10px] text-muted-foreground/50 mt-0.5 hidden sm:block">{kpi.detail}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -262,19 +262,19 @@ export default function Dashboard() {
         <Card className="bg-card border-border">
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <CardTitle className="font-display text-base font-semibold flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-accent" />
+              <TrendingUp className="h-4 w-4 text-primary" />
               Weekly Sales Trend
             </CardTitle>
             <span className="text-[10px] text-muted-foreground">Last 7 days</span>
           </CardHeader>
           <CardContent className="pt-2 pb-4">
-            <div className="h-48 md:h-56">
+            <div className="h-52 md:h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={SALES_TREND} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="salesGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="hsl(166 81% 38%)" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="hsl(166 81% 38%)" stopOpacity={0} />
+                      <stop offset="5%" stopColor="hsl(243 75% 59%)" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="hsl(243 75% 59%)" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="expenseGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(0 84% 60%)" stopOpacity={0.15} />
@@ -284,14 +284,14 @@ export default function Dashboard() {
                   <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: "hsl(220 5% 55%)", fontSize: 11 }} />
                   <YAxis axisLine={false} tickLine={false} tick={{ fill: "hsl(220 5% 55%)", fontSize: 10 }} tickFormatter={(v) => `${v / 1000}k`} />
                   <Tooltip content={<ChartTooltip />} />
-                  <Area type="monotone" dataKey="sales" stroke="hsl(166 81% 38%)" strokeWidth={2} fill="url(#salesGrad)" />
-                  <Area type="monotone" dataKey="expenses" stroke="hsl(0 84% 60%)" strokeWidth={1.5} strokeDasharray="4 4" fill="url(#expenseGrad)" />
+                  <Area type="monotone" dataKey="sales" stroke="hsl(243 75% 59%)" strokeWidth={2} fill="url(#salesGrad)" />
+                  <Area type="monotone" dataKey="expenses" stroke="hsl(0 84% 60%)" strokeWidth={1.5} strokeDasharray="5 5" fill="url(#expenseGrad)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
             <div className="flex items-center gap-4 mt-2 justify-center">
               <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                <span className="h-2 w-2 rounded-full bg-accent" /> Sales
+                <span className="h-2 w-2 rounded-full bg-primary" /> Sales
               </span>
               <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-destructive" /> Expenses
@@ -307,7 +307,7 @@ export default function Dashboard() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-40px" }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
       >
         {/* Inventory Alerts */}
         <motion.div variants={cardEntrance}>
@@ -327,7 +327,7 @@ export default function Dashboard() {
                 return (
                   <div key={item.name} className="space-y-1.5 group cursor-pointer">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-foreground font-medium group-hover:text-accent transition-colors">{item.name}</span>
+                      <span className="text-sm text-foreground font-medium group-hover:text-primary transition-colors">{item.name}</span>
                       <span className="text-[11px] text-muted-foreground">{item.value}</span>
                     </div>
                     <div className="flex items-center gap-3">
@@ -347,7 +347,7 @@ export default function Dashboard() {
                   </div>
                 );
               })}
-              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-2 flex items-center gap-1 min-h-[44px] py-2">
+              <button className="text-xs text-primary hover:text-primary/80 transition-colors mt-2 flex items-center gap-1 min-h-[44px] py-2">
                 View all inventory <ChevronRight className="h-3 w-3" />
               </button>
             </CardContent>
@@ -378,7 +378,7 @@ export default function Dashboard() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-baseline justify-between gap-2">
-                      <p className="text-sm text-foreground font-medium truncate group-hover:text-accent transition-colors">{c.name}</p>
+                      <p className="text-sm text-foreground font-medium truncate group-hover:text-primary transition-colors">{c.name}</p>
                       <span className="text-xs font-semibold text-foreground whitespace-nowrap flex-shrink-0">
                         {c.owed}
                       </span>
@@ -389,7 +389,7 @@ export default function Dashboard() {
                   </div>
                 </motion.div>
               ))}
-              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-1 flex items-center gap-1 min-h-[44px] py-2">
+              <button className="text-xs text-primary hover:text-primary/80 transition-colors mt-1 flex items-center gap-1 min-h-[44px] py-2">
                 View all debtors <ChevronRight className="h-3 w-3" />
               </button>
             </CardContent>
@@ -432,7 +432,7 @@ export default function Dashboard() {
                   );
                 })}
               </div>
-              <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-3 flex items-center gap-1 min-h-[44px] py-2">
+              <button className="text-xs text-primary hover:text-primary/80 transition-colors mt-3 flex items-center gap-1 min-h-[44px] py-2">
                 View full ledger <ChevronRight className="h-3 w-3" />
               </button>
             </CardContent>

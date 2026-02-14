@@ -34,7 +34,7 @@ export function AppSidebar() {
   return (
     <Sidebar className="border-r border-border bg-card">
       <SidebarHeader className="p-4 flex flex-row items-center justify-between">
-        <span className="font-display font-bold text-lg text-accent tracking-tight">Nexus</span>
+        <span className="font-display font-bold text-lg text-primary tracking-tight">Nexus</span>
         <SidebarTrigger className="text-muted-foreground hover:text-foreground h-7 w-7">
           <ChevronLeft className="h-4 w-4" />
         </SidebarTrigger>
@@ -54,7 +54,7 @@ export function AppSidebar() {
                       to={item.url}
                       end={item.url === "/dashboard"}
                       className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
-                      activeClassName="bg-accent/10 text-accent font-medium"
+                      activeClassName="bg-primary/10 text-primary font-medium"
                     >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
@@ -78,7 +78,7 @@ export function AppSidebar() {
                     <NavLink
                       to={item.url}
                       className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
-                      activeClassName="bg-accent/10 text-accent font-medium"
+                      activeClassName="bg-primary/10 text-primary font-medium"
                     >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>

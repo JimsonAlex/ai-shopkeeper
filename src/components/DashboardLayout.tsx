@@ -14,7 +14,7 @@ export default function DashboardLayout() {
             <SidebarTrigger className="text-muted-foreground hover:text-foreground h-10 w-10 flex items-center justify-center -ml-1">
               <Menu className="h-5 w-5" />
             </SidebarTrigger>
-            <span className="font-display font-bold text-accent">Nexus</span>
+            <span className="font-display font-bold text-primary">Nexus</span>
           </header>
           <main className="flex-1 overflow-y-auto">
             <Outlet />

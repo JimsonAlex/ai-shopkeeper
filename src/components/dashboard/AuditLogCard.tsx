@@ -142,7 +142,7 @@ export default function AuditLogCard() {
     <Card className="bg-card border-border">
       <CardHeader className="pb-3">
         <CardTitle className="font-display text-sm font-semibold flex items-center gap-2">
-          <Clock className="h-4 w-4 text-accent" />
+          <Clock className="h-4 w-4 text-primary" />
           AI Audit Log
           {entries.length > 0 && (
             <span className="ml-auto text-[10px] font-normal text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">
