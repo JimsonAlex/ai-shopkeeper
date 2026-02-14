@@ -49,7 +49,7 @@ const Register = () => {
               const token = res.key || res.access;
               if (token) localStorage.setItem("auth_token", token);
               toast({ title: "Account created!", description: "Signed up with Google." });
-              navigate("/");
+              navigate("/onboarding");
             }}
             onError={(msg) => toast({ title: "Google sign-up failed", description: msg, variant: "destructive" })}
           />
