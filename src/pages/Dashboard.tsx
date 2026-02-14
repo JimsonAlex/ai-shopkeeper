@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Wallet, ShoppingCart, Receipt, TrendingUp,
   ArrowUpRight, ArrowDownRight, AlertTriangle, Clock,
-  CreditCard, Plus, Mic, Camera, ChevronRight, Users,
+  CreditCard, Mic, Camera, ChevronRight, Users,
+  MessageSquare,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
@@ -81,15 +81,47 @@ const ACTIVITY = [
   { id: 5, type: "expense", desc: "Restock — 20 bags cement from supplier", amount: "-TZS 280,000", time: "2 hr ago", icon: Receipt },
 ];
 
-const QUICK_ACTIONS = [
-  { label: "Record Sale", icon: Plus, color: "bg-accent/15 text-accent hover:bg-accent/25" },
-  { label: "Add Expense", icon: Receipt, color: "bg-destructive/10 text-destructive hover:bg-destructive/20" },
-  { label: "Voice Entry", icon: Mic, color: "bg-blue-500/10 text-blue-500 hover:bg-blue-500/20" },
-  { label: "Scan Receipt", icon: Camera, color: "bg-amber-500/10 text-amber-500 hover:bg-amber-500/20" },
+/* ───── Universal input methods ───── */
+const INPUT_METHODS = [
+  {
+    label: "Voice",
+    icon: Mic,
+    hint: "Speak naturally",
+    bgClass: "bg-accent/15",
+    iconClass: "text-accent",
+    activeClass: "bg-accent text-accent-foreground",
+  },
+  {
+    label: "Text",
+    icon: MessageSquare,
+    hint: "Type anything",
+    bgClass: "bg-secondary",
+    iconClass: "text-foreground",
+    activeClass: "bg-foreground text-background",
+  },
+  {
+    label: "Photo",
+    icon: Camera,
+    hint: "Snap a receipt",
+    bgClass: "bg-amber-500/10",
+    iconClass: "text-amber-500",
+    activeClass: "bg-amber-500 text-white",
+  },
 ];
 
-const fadeUp = {
-  initial: { opacity: 0, y: 16 },
+/* ───── Animation variants ───── */
+const staggerContainer = {
+  animate: { transition: { staggerChildren: 0.06 } },
+};
+
+const cardEntrance = {
+  initial: { opacity: 0, y: 20, scale: 0.97 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
+};
+
+const sectionEntrance = {
+  initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
 };
 
@@ -110,11 +142,17 @@ function ChartTooltip({ active, payload, label }: any) {
 
 export default function Dashboard() {
   const [expandedActivity, setExpandedActivity] = useState<number | null>(null);
+  const [activeInput, setActiveInput] = useState<string | null>(null);
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
-      {/* Header + Quick Actions */}
-      <motion.div {...fadeUp} transition={{ duration: 0.3 }} className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+    <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 pb-28 md:pb-8">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
+      >
         <div>
           <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
             Good afternoon, Musa 👋
@@ -124,45 +162,71 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* Quick Actions — desktop */}
+        {/* Desktop input methods — inline */}
         <div className="hidden sm:flex items-center gap-2">
-          {QUICK_ACTIONS.map((a) => (
-            <Button
-              key={a.label}
-              variant="ghost"
-              size="sm"
-              className={`gap-1.5 rounded-lg text-xs font-medium transition-all ${a.color}`}
+          {INPUT_METHODS.map((m) => (
+            <motion.button
+              key={m.label}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => setActiveInput(activeInput === m.label ? null : m.label)}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium transition-all ${
+                activeInput === m.label ? m.activeClass : `${m.bgClass} ${m.iconClass}`
+              }`}
             >
-              <a.icon className="h-3.5 w-3.5" />
-              {a.label}
-            </Button>
+              <m.icon className="h-4 w-4" />
+              {m.label}
+            </motion.button>
           ))}
         </div>
       </motion.div>
 
-      {/* Quick Actions — mobile horizontal scroll */}
-      <div className="sm:hidden -mx-4 px-4">
-        <motion.div {...fadeUp} transition={{ duration: 0.3, delay: 0.05 }} className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-          {QUICK_ACTIONS.map((a) => (
-            <button
-              key={a.label}
-              className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium whitespace-nowrap transition-all active:scale-95 min-h-[44px] ${a.color}`}
-            >
-              <a.icon className="h-5 w-5" />
-              {a.label}
-            </button>
-          ))}
-        </motion.div>
-      </div>
+      {/* Desktop: expanded input area */}
+      <AnimatePresence>
+        {activeInput && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="hidden sm:block overflow-hidden"
+          >
+            <Card className="bg-card border-border border-dashed">
+              <CardContent className="p-4 flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  {activeInput === "Voice" && <Mic className="h-5 w-5 text-accent" />}
+                  {activeInput === "Text" && <MessageSquare className="h-5 w-5 text-foreground" />}
+                  {activeInput === "Photo" && <Camera className="h-5 w-5 text-amber-500" />}
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm text-foreground font-medium">
+                    {activeInput === "Voice" && "Tap and speak — \"Sold 5 bags cement to John for 75,000\""}
+                    {activeInput === "Text" && "Type anything — \"Paid 15k for delivery fuel\""}
+                    {activeInput === "Photo" && "Take a photo of a receipt or invoice"}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    AI will automatically detect if it's a sale, expense, or stock update
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
-        {KPI.map((kpi, i) => {
+      <motion.div
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4"
+      >
+        {KPI.map((kpi) => {
           const Icon = kpi.icon;
           const isUp = kpi.trend === "up";
           return (
-            <motion.div key={kpi.label} {...fadeUp} transition={{ duration: 0.3, delay: i * 0.05 }}>
-              <Card className="bg-card border-border hover:border-accent/20 transition-all hover:shadow-md hover:shadow-accent/5 cursor-pointer group active:scale-[0.98]">
+            <motion.div key={kpi.label} variants={cardEntrance}>
+              <Card className="bg-card border-border hover:border-accent/20 transition-all hover:shadow-md hover:shadow-accent/5 cursor-pointer group active:scale-[0.97]">
                 <CardContent className="p-3 md:p-5">
                   <div className="flex items-center justify-between mb-1.5 md:mb-3">
                     <div className="h-7 w-7 md:h-9 md:w-9 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
@@ -184,10 +248,10 @@ export default function Dashboard() {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* Sales Trend Chart */}
-      <motion.div {...fadeUp} transition={{ duration: 0.3, delay: 0.15 }}>
+      <motion.div {...sectionEntrance} transition={{ duration: 0.4, delay: 0.2 }}>
         <Card className="bg-card border-border">
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <CardTitle className="font-display text-base font-semibold flex items-center gap-2">
@@ -210,34 +274,11 @@ export default function Dashboard() {
                       <stop offset="95%" stopColor="hsl(0 84% 60%)" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis
-                    dataKey="day"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "hsl(220 5% 55%)", fontSize: 11 }}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "hsl(220 5% 55%)", fontSize: 10 }}
-                    tickFormatter={(v) => `${v / 1000}k`}
-                  />
+                  <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: "hsl(220 5% 55%)", fontSize: 11 }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: "hsl(220 5% 55%)", fontSize: 10 }} tickFormatter={(v) => `${v / 1000}k`} />
                   <Tooltip content={<ChartTooltip />} />
-                  <Area
-                    type="monotone"
-                    dataKey="sales"
-                    stroke="hsl(166 81% 38%)"
-                    strokeWidth={2}
-                    fill="url(#salesGrad)"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="expenses"
-                    stroke="hsl(0 84% 60%)"
-                    strokeWidth={1.5}
-                    strokeDasharray="4 4"
-                    fill="url(#expenseGrad)"
-                  />
+                  <Area type="monotone" dataKey="sales" stroke="hsl(166 81% 38%)" strokeWidth={2} fill="url(#salesGrad)" />
+                  <Area type="monotone" dataKey="expenses" stroke="hsl(0 84% 60%)" strokeWidth={1.5} strokeDasharray="4 4" fill="url(#expenseGrad)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -254,9 +295,15 @@ export default function Dashboard() {
       </motion.div>
 
       {/* Three-column: Low Stock + Credits + Activity */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <motion.div
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, margin: "-40px" }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+      >
         {/* Inventory Alerts */}
-        <motion.div {...fadeUp} transition={{ duration: 0.3, delay: 0.2 }}>
+        <motion.div variants={cardEntrance}>
           <Card className="bg-card border-border h-full">
             <CardHeader className="pb-3">
               <CardTitle className="font-display text-sm font-semibold flex items-center gap-2">
@@ -281,7 +328,8 @@ export default function Dashboard() {
                         <motion.div
                           className={`h-full rounded-full ${pct < 30 ? "bg-rose-500" : pct < 60 ? "bg-amber-500" : "bg-accent"}`}
                           initial={{ width: 0 }}
-                          animate={{ width: `${pct}%` }}
+                          whileInView={{ width: `${pct}%` }}
+                          viewport={{ once: true }}
                           transition={{ duration: 0.8, delay: 0.3 }}
                         />
                       </div>
@@ -300,7 +348,7 @@ export default function Dashboard() {
         </motion.div>
 
         {/* Credit / Debtors */}
-        <motion.div {...fadeUp} transition={{ duration: 0.3, delay: 0.25 }}>
+        <motion.div variants={cardEntrance}>
           <Card className="bg-card border-border h-full">
             <CardHeader className="pb-3">
               <CardTitle className="font-display text-sm font-semibold flex items-center gap-2">
@@ -313,8 +361,9 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent className="space-y-2">
               {CREDITS.map((c) => (
-                <div
+                <motion.div
                   key={c.name}
+                  whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-2.5 md:gap-3 rounded-lg px-2.5 md:px-3 py-3 hover:bg-secondary/50 active:bg-secondary/70 transition-colors cursor-pointer group min-h-[52px]"
                 >
                   <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
@@ -331,7 +380,7 @@ export default function Dashboard() {
                       Due: {c.due}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
               <button className="text-xs text-accent hover:text-accent/80 transition-colors mt-1 flex items-center gap-1 min-h-[44px] py-2">
                 View all debtors <ChevronRight className="h-3 w-3" />
@@ -341,7 +390,7 @@ export default function Dashboard() {
         </motion.div>
 
         {/* Recent Activity */}
-        <motion.div className="md:col-span-2 lg:col-span-1" {...fadeUp} transition={{ duration: 0.3, delay: 0.3 }}>
+        <motion.div className="md:col-span-2 lg:col-span-1" variants={cardEntrance}>
           <Card className="bg-card border-border h-full">
             <CardHeader className="pb-3">
               <CardTitle className="font-display text-sm font-semibold flex items-center gap-2">
@@ -356,8 +405,9 @@ export default function Dashboard() {
                   const isIncome = a.amount.startsWith("+");
                   const isExpanded = expandedActivity === a.id;
                   return (
-                    <div
+                    <motion.div
                       key={a.id}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => setExpandedActivity(isExpanded ? null : a.id)}
                       className="flex items-center gap-2.5 md:gap-3 rounded-lg px-2.5 md:px-3 py-3 hover:bg-secondary/50 active:bg-secondary/70 transition-all cursor-pointer min-h-[52px]"
                     >
@@ -371,7 +421,7 @@ export default function Dashboard() {
                       <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${isIncome ? "text-emerald-500" : "text-rose-500"}`}>
                         {a.amount}
                       </span>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -381,6 +431,61 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </motion.div>
+      </motion.div>
+
+      {/* ═══ Mobile floating input bar ═══ */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+        {/* Expanded input hint */}
+        <AnimatePresence>
+          {activeInput && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="mx-4 mb-2 rounded-xl bg-card border border-border shadow-lg px-4 py-3"
+            >
+              <p className="text-sm text-foreground font-medium">
+                {activeInput === "Voice" && "🎙️ Speak naturally — \"Sold 5 bags cement for 75k\""}
+                {activeInput === "Text" && "⌨️ Type anything — \"Paid 15k delivery fuel\""}
+                {activeInput === "Photo" && "📸 Snap a receipt or invoice"}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-1">
+                AI detects if it's a sale, expense, or stock update
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Input method buttons */}
+        <div className="bg-card/95 backdrop-blur-md border-t border-border px-6 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-around max-w-xs mx-auto">
+            {INPUT_METHODS.map((m) => {
+              const isActive = activeInput === m.label;
+              return (
+                <motion.button
+                  key={m.label}
+                  whileTap={{ scale: 0.88 }}
+                  onClick={() => setActiveInput(isActive ? null : m.label)}
+                  className="flex flex-col items-center gap-1.5 min-w-[64px] min-h-[56px] justify-center"
+                >
+                  <motion.div
+                    animate={isActive ? { scale: 1.15 } : { scale: 1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className={`h-11 w-11 rounded-full flex items-center justify-center transition-colors ${
+                      isActive ? m.activeClass : m.bgClass
+                    }`}
+                  >
+                    <m.icon className={`h-5 w-5 ${isActive ? "" : m.iconClass}`} />
+                  </motion.div>
+                  <span className={`text-[10px] font-medium transition-colors ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                    {m.label}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
