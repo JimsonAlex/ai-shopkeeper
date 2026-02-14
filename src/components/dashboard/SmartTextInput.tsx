@@ -4,6 +4,7 @@ import {
   ShoppingCart, Receipt, Package, CreditCard,
   Send, X, Sparkles, User, ChevronRight,
 } from "lucide-react";
+import { auditLogStore } from "@/stores/auditLog";
 
 /* ───── Known accounts & products for auto-fill ───── */
 const KNOWN_ACCOUNTS = [
@@ -179,13 +180,23 @@ export default function SmartTextInput({ isVisible, onClose, variant }: SmartTex
 
   const handleSubmit = useCallback(() => {
     if (!text.trim()) return;
+
+    // Log to audit trail
+    auditLogStore.addEntry({
+      rawText: text.trim(),
+      detectedIntent: intent?.type ?? null,
+      confidence: intent?.confidence ?? "low",
+      parsedFields: parsedFields.map((f) => ({ label: f.label, value: f.value })),
+      status: "confirmed",
+    });
+
     setSubmitted(true);
     setTimeout(() => {
       setText("");
       setSubmitted(false);
       onClose();
     }, 1500);
-  }, [text, onClose]);
+  }, [text, intent, parsedFields, onClose]);
 
   const handleSuggestionClick = useCallback((name: string) => {
     // Replace the last partial word with the full name
