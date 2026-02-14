@@ -1,9 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { Menu } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function DashboardLayout() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -14,7 +17,14 @@ export default function DashboardLayout() {
             <SidebarTrigger className="text-muted-foreground hover:text-foreground h-10 w-10 flex items-center justify-center -ml-1">
               <Menu className="h-5 w-5" />
             </SidebarTrigger>
-            <span className="font-display font-bold text-primary">Nexus</span>
+            <span className="font-display font-bold text-primary flex-1">Nexus</span>
+            <button
+              onClick={toggleTheme}
+              className="h-9 w-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
           </header>
           <main className="flex-1 overflow-y-auto">
             <Outlet />
