@@ -1,15 +1,12 @@
 import { motion } from "framer-motion";
 
-const partnersRow1 = [
+const partners = [
   "Safaricom",
   "M-Pesa",
   "Equity Bank",
   "KCB",
   "Jumia",
   "Twiga Foods",
-];
-
-const partnersRow2 = [
   "Flutterwave",
   "Paystack",
   "Cellulant",
@@ -18,62 +15,49 @@ const partnersRow2 = [
   "Wasoko",
 ];
 
-const marqueeRow1 = [...partnersRow1, ...partnersRow1];
-const marqueeRow2 = [...partnersRow2, ...partnersRow2];
-
-const MarqueeRow = ({
-  items,
-  reverse = false,
-  duration = 20,
-}: {
-  items: string[];
-  reverse?: boolean;
-  duration?: number;
-}) => (
-  <div className="relative">
-    <div className="absolute left-0 top-0 bottom-0 w-28 md:w-48 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-    <div className="absolute right-0 top-0 bottom-0 w-28 md:w-48 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-    <motion.div
-      className="flex items-center gap-20 md:gap-28 w-max"
-      animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
-      transition={{
-        x: {
-          duration,
-          repeat: Infinity,
-          ease: "linear",
-        },
-      }}
-    >
-      {items.map((name, i) => (
-        <span
-          key={`${name}-${i}`}
-          className="font-display text-2xl md:text-3xl font-extrabold text-foreground/20 hover:text-foreground/40 transition-colors duration-500 select-none tracking-tight whitespace-nowrap"
-        >
-          {name}
-        </span>
-      ))}
-    </motion.div>
-  </div>
-);
-
 const LogoCloudSection = () => (
-  <section className="py-16 md:py-20 bg-background relative overflow-hidden">
+  <section
+    className="py-16 md:py-20 bg-background relative overflow-hidden"
+    aria-label="Trusted partners"
+  >
     <div className="container mx-auto px-4 md:px-8">
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center text-muted-foreground/40 text-[11px] uppercase tracking-[0.2em] font-semibold mb-12"
+        className="text-center text-muted-foreground/50 text-[11px] uppercase tracking-[0.2em] font-semibold mb-12"
       >
         Trusted by leading businesses across Africa
       </motion.p>
-    </div>
 
-    <div className="space-y-8">
-      <MarqueeRow items={marqueeRow1} duration={22} />
-      <MarqueeRow items={marqueeRow2} reverse duration={26} />
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5 max-w-5xl mx-auto"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-40px" }}
+        variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+      >
+        {partners.map((name) => (
+          <motion.a
+            key={name}
+            href="#"
+            role="link"
+            tabIndex={0}
+            aria-label={`Learn more about ${name}`}
+            variants={{
+              hidden: { opacity: 0, scale: 0.9 },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.35, ease: "easeOut" } },
+            }}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="group flex items-center justify-center rounded-xl border border-border/50 bg-card/50 px-4 py-5 md:py-6 transition-all duration-300 hover:border-accent/30 hover:bg-accent/[0.04] hover:shadow-lg hover:shadow-accent/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <span className="font-display text-sm md:text-base font-bold text-foreground/40 group-hover:text-foreground/70 group-focus-visible:text-foreground/70 transition-colors duration-300 tracking-tight select-none">
+              {name}
+            </span>
+          </motion.a>
+        ))}
+      </motion.div>
     </div>
   </section>
 );
