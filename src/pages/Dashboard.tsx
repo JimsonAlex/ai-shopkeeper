@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Wallet, ShoppingCart, Receipt, TrendingUp,
@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
+import SmartTextInput from "@/components/dashboard/SmartTextInput";
 
 /* ───── Mock data ───── */
 const KPI = [
@@ -144,6 +145,8 @@ export default function Dashboard() {
   const [expandedActivity, setExpandedActivity] = useState<number | null>(null);
   const [activeInput, setActiveInput] = useState<string | null>(null);
 
+  const handleCloseInput = useCallback(() => setActiveInput(null), []);
+
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 pb-28 md:pb-8">
       {/* Header */}
@@ -183,7 +186,12 @@ export default function Dashboard() {
 
       {/* Desktop: expanded input area */}
       <AnimatePresence>
-        {activeInput && (
+        {activeInput === "Text" && (
+          <div className="hidden sm:block">
+            <SmartTextInput isVisible variant="desktop" onClose={handleCloseInput} />
+          </div>
+        )}
+        {activeInput && activeInput !== "Text" && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -195,13 +203,11 @@ export default function Dashboard() {
               <CardContent className="p-4 flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
                   {activeInput === "Voice" && <Mic className="h-5 w-5 text-accent" />}
-                  {activeInput === "Text" && <MessageSquare className="h-5 w-5 text-foreground" />}
                   {activeInput === "Photo" && <Camera className="h-5 w-5 text-amber-500" />}
                 </div>
                 <div className="flex-1">
                   <p className="text-sm text-foreground font-medium">
                     {activeInput === "Voice" && "Tap and speak — \"Sold 5 bags cement to John for 75,000\""}
-                    {activeInput === "Text" && "Type anything — \"Paid 15k for delivery fuel\""}
                     {activeInput === "Photo" && "Take a photo of a receipt or invoice"}
                   </p>
                   <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -435,9 +441,12 @@ export default function Dashboard() {
 
       {/* ═══ Mobile floating input bar ═══ */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
-        {/* Expanded input hint */}
+        {/* Expanded input — Text gets SmartTextInput, others get hint */}
         <AnimatePresence>
-          {activeInput && (
+          {activeInput === "Text" && (
+            <SmartTextInput isVisible variant="mobile" onClose={handleCloseInput} />
+          )}
+          {activeInput && activeInput !== "Text" && (
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -447,7 +456,6 @@ export default function Dashboard() {
             >
               <p className="text-sm text-foreground font-medium">
                 {activeInput === "Voice" && "🎙️ Speak naturally — \"Sold 5 bags cement for 75k\""}
-                {activeInput === "Text" && "⌨️ Type anything — \"Paid 15k delivery fuel\""}
                 {activeInput === "Photo" && "📸 Snap a receipt or invoice"}
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
