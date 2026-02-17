@@ -47,7 +47,7 @@ const CTASection = () => (
           Start <span className="text-accent">knowing</span>.
         </h2>
 
-        <p className="text-primary-foreground/40 text-base sm:text-lg mb-10 max-w-md mx-auto leading-relaxed">
+        <p className="text-primary-foreground/70 text-base sm:text-lg mb-10 max-w-md mx-auto leading-relaxed">
           No credit card required. Set up in minutes. See your first insights today.
         </p>
 
@@ -69,7 +69,7 @@ const CTASection = () => (
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-6 text-xs text-primary-foreground/25"
+          className="mt-6 text-xs text-primary-foreground/50"
         >
           Join 2,000+ retailers already saving hours every week
         </motion.p>
