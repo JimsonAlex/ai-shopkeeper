@@ -186,24 +186,14 @@ const Hero = () => {
       </FadeIn>
     </div>
 
-    {/* Purple-blue gradient wave at bottom — Nexa signature */}
-    <div className="absolute bottom-0 left-0 right-0 h-[25%] pointer-events-none overflow-hidden">
-      {/* Main wave shape */}
+    {/* Soft gradient sweep at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 h-[20%] pointer-events-none overflow-hidden">
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[160%] h-full"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[160%] h-full opacity-80"
         style={{
-          background: 'linear-gradient(135deg, hsl(260 70% 55%), hsl(243 75% 59%), hsl(220 80% 50%))',
+          background: 'linear-gradient(135deg, hsl(var(--primary) / 0.35), hsl(var(--accent) / 0.25), hsl(var(--primary) / 0.15))',
           borderRadius: '50% 50% 0 0',
-          transform: 'translateX(-50%) translateY(30%)',
-        }}
-      />
-      {/* Lighter overlay for depth */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[180%] h-[80%] opacity-40"
-        style={{
-          background: 'linear-gradient(120deg, hsl(280 60% 65% / 0.6), hsl(240 70% 60% / 0.4), transparent)',
-          borderRadius: '50% 50% 0 0',
-          transform: 'translateX(-50%) translateY(25%)',
+          transform: 'translateX(-50%) translateY(35%)',
         }}
       />
     </div>
