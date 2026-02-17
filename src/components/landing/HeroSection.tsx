@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 import FadeIn from "./FadeIn";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+
+const rotatingWords = [
+  "Retail Finances",
+  "Daily Sales",
+  "Expense Tracking",
+  "Profit Insights",
+];
 
 const navLinks = [
   { href: "#why-nexus", label: "Why Nexus?" },
@@ -101,7 +108,17 @@ const Navbar = () => {
   );
 };
 
-const Hero = () => (
+const Hero = () => {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
   <section className="relative min-h-[85dvh] flex flex-col items-center justify-center overflow-hidden bg-background">
     {/* Content */}
     <div className="container mx-auto px-4 md:px-8 py-20 md:py-32 relative z-10 text-center">
@@ -120,7 +137,7 @@ const Hero = () => (
         </motion.div>
       </FadeIn>
 
-      {/* Massive headline — Nexa-style */}
+      {/* Massive headline with rotating word */}
       <FadeIn>
         <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold text-foreground leading-[1.05] mb-8 max-w-5xl mx-auto tracking-tight">
           <motion.span
@@ -132,15 +149,20 @@ const Hero = () => (
           >
             Take Control of Your
           </motion.span>
-          <motion.span
-            className="block"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Retail Finances
-          </motion.span>
+          <span className="block relative h-[1.15em] overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={rotatingWords[wordIndex]}
+                className="absolute inset-x-0"
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -60, opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {rotatingWords[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </h1>
       </FadeIn>
 
@@ -186,7 +208,8 @@ const Hero = () => (
       />
     </div>
   </section>
-);
+  );
+};
 
 const HeroSection = () => (
   <>
