@@ -186,17 +186,6 @@ const Hero = () => {
       </FadeIn>
     </div>
 
-    {/* Soft gradient sweep at bottom */}
-    <div className="absolute bottom-0 left-0 right-0 h-[20%] pointer-events-none overflow-hidden">
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[160%] h-full opacity-80"
-        style={{
-          background: 'linear-gradient(135deg, hsl(var(--primary) / 0.35), hsl(var(--accent) / 0.25), hsl(var(--primary) / 0.15))',
-          borderRadius: '50% 50% 0 0',
-          transform: 'translateX(-50%) translateY(35%)',
-        }}
-      />
-    </div>
   </section>
   );
 };
