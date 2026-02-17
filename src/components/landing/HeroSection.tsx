@@ -55,7 +55,7 @@ const Navbar = () => {
           </button>
           <Link to="/register" className="hidden sm:block">
             <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 font-semibold rounded-lg text-xs px-5">
-              Get Started
+              Get Nexus Free
             </Button>
           </Link>
           <button
@@ -90,7 +90,7 @@ const Navbar = () => {
               ))}
               <Link to="/register" onClick={() => setMobileOpen(false)} className="mt-2">
                 <Button className="w-full bg-foreground text-background hover:bg-foreground/90 font-semibold rounded-lg">
-                  Get Started
+                  Get Nexus Free
                 </Button>
               </Link>
             </div>
