@@ -7,10 +7,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
+  { href: "#why-nexus", label: "Why Nexus?" },
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How it works" },
   { href: "#testimonials", label: "Testimonials" },
-  { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -115,7 +115,7 @@ const Hero = () => (
           transition={{ duration: 0.5 }}
         >
           <span className="text-muted-foreground text-sm font-medium">
-            AI-powered accounting made simple
+            Trusted by 2,000+ shop owners
           </span>
         </motion.div>
       </FadeIn>
@@ -130,32 +130,23 @@ const Hero = () => (
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            Hi Nexus,
+            Take Control of Your
           </motion.span>
           <motion.span
             className="block"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            Track my sales
-          </motion.span>
-          <motion.span
-            className="block"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            for today
+            Retail Finances
           </motion.span>
         </h1>
       </FadeIn>
 
       <FadeIn delay={0.2}>
         <p className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto mb-12 leading-relaxed">
-          Just ask. Nexus understands natural conversation and handles your accounting automatically — tracking sales, managing expenses, creating reports. No spreadsheets, no manual work.
+          AI-powered accounting that turns voice notes, receipts, and texts into real-time profit insights — automatically.
         </p>
       </FadeIn>
 
@@ -166,7 +157,7 @@ const Hero = () => (
             whileTap={{ scale: 0.98 }}
             className="group inline-flex items-center gap-2.5 bg-foreground text-background font-semibold text-sm sm:text-base px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl shadow-lg transition-colors hover:bg-foreground/90"
           >
-            Get Nexus free
+            Start for free
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </motion.button>
         </Link>
@@ -174,7 +165,7 @@ const Hero = () => (
     </div>
 
     {/* Purple-blue gradient wave at bottom — Nexa signature */}
-    <div className="absolute bottom-0 left-0 right-0 h-[40%] pointer-events-none overflow-hidden">
+    <div className="absolute bottom-0 left-0 right-0 h-[25%] pointer-events-none overflow-hidden">
       {/* Main wave shape */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[160%] h-full"
